@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Arena — Narrative Gym · Gimnasio Creativo Social</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue:  #1A1AFF;
+      --dark:  #141414;
+      --cream: #F0EDE6;
+      --white: #FFFFFF;
+      --blue-dim: rgba(26,26,255,0.12);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Space Grotesk', system-ui, sans-serif;
+      background-color: var(--dark);
+      color: var(--cream);
+      overflow-x: hidden;
+    }
+
+    /* ── Typography ── */
+    h1 { font-size: clamp(3rem, 8vw, 7rem); font-weight: 700; line-height: 0.95; letter-spacing: -0.03em; }
+    .hero-logo-lockup { margin-bottom: 2rem; }
+    .hero-logo-svg { display: block; width: clamp(280px, 55vw, 640px); height: auto; }
+    .hero-gym-label { font-size: clamp(1rem, 2vw, 1.4rem); font-weight: 600; color: rgba(240,237,230,0.5); letter-spacing: 0.12em; text-transform: uppercase; margin-top: 0.75rem; }
+    h2 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 700; line-height: 1.05; letter-spacing: -0.02em; }
+    h3 { font-size: clamp(1.1rem, 2vw, 1.4rem); font-weight: 600; line-height: 1.2; }
+    p  { font-size: clamp(1rem, 1.5vw, 1.15rem); line-height: 1.65; font-weight: 400; }
+
+    /* ── Layout ── */
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+    section { padding: 6rem 0; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 1.25rem 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+      background: rgba(20,20,20,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(240,237,230,0.08);
+    }
+    .nav-logo svg { height: 32px; width: auto; }
+    .nav-logo svg .st0 { fill: var(--cream); }
+    .nav-cta {
+      background: var(--blue);
+      color: var(--white);
+      text-decoration: none;
+      padding: 0.6rem 1.4rem;
+      border-radius: 2px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      transition: opacity 0.2s;
+    }
+    .nav-cta:hover { opacity: 0.85; }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column; justify-content: flex-end;
+      background: var(--dark);
+      padding-top: 6rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-bg-isotipo {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: clamp(320px, 55vw, 680px);
+      height: auto;
+      pointer-events: none;
+      user-select: none;
+      opacity: 0.07;
+    }
+    .hero-bg-isotipo path { fill: #1A1AFF; }
+    .hero-inner {
+      position: relative; z-index: 2;
+      padding: 0 2rem 5rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    .hero-tag {
+      display: inline-block;
+      background: var(--blue);
+      color: var(--white);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.4rem 0.9rem;
+      margin-bottom: 2rem;
+      border-radius: 2px;
+    }
+    .hero-title { color: var(--cream); margin-bottom: 2rem; }
+    .hero-title em { color: var(--blue); font-style: normal; }
+    .hero-sub {
+      max-width: 640px;
+      color: rgba(240,237,230,0.7);
+      margin-bottom: 3rem;
+      font-size: clamp(1rem, 1.8vw, 1.2rem);
+    }
+    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; }
+    .btn-primary {
+      background: var(--blue);
+      color: var(--white);
+      text-decoration: none;
+      padding: 1rem 2.2rem;
+      font-size: 1rem;
+      font-weight: 700;
+      border-radius: 2px;
+      transition: transform 0.2s, opacity 0.2s;
+      display: inline-block;
+    }
+    .btn-primary:hover { opacity: 0.88; transform: translateY(-2px); }
+    .btn-ghost {
+      color: var(--cream);
+      text-decoration: none;
+      padding: 1rem 2.2rem;
+      font-size: 1rem;
+      font-weight: 600;
+      border: 1px solid rgba(240,237,230,0.3);
+      border-radius: 2px;
+      transition: border-color 0.2s, color 0.2s;
+      display: inline-block;
+    }
+    .btn-ghost:hover { border-color: var(--cream); }
+    .hero-date {
+      margin-top: 3rem;
+      font-size: 0.85rem;
+      color: rgba(240,237,230,0.45);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .hero-date strong { color: var(--blue); }
+
+    /* ── DIVIDER LINE ── */
+    .rule { width: 100%; height: 1px; background: rgba(240,237,230,0.1); }
+
+    /* ── ABOUT ── */
+    #about { background: var(--cream); color: var(--dark); }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+    #about h2 { color: var(--dark); }
+    .about-lead {
+      font-size: clamp(1.1rem, 2vw, 1.35rem);
+      font-weight: 500;
+      line-height: 1.5;
+      color: var(--dark);
+      margin-bottom: 1.5rem;
+    }
+    .about-body { color: rgba(20,20,20,0.72); }
+    .about-stat-block { display: flex; flex-direction: column; gap: 2rem; padding-top: 0.5rem; }
+    .stat {
+      border-left: 3px solid var(--blue);
+      padding-left: 1.5rem;
+    }
+    .stat-num {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 700;
+      color: var(--blue);
+      line-height: 1;
+      margin-bottom: 0.25rem;
+    }
+    .stat-label { font-size: 0.95rem; color: rgba(20,20,20,0.6); font-weight: 500; }
+
+    /* ── QUIÉNES BUSCAMOS ── */
+    #who { background: var(--blue); color: var(--white); }
+    #who h2 { color: var(--white); margin-bottom: 1rem; }
+    .who-lead {
+      font-size: clamp(1rem, 1.8vw, 1.25rem);
+      max-width: 680px;
+      opacity: 0.9;
+      margin-bottom: 3.5rem;
+    }
+    .profiles-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1px;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.15);
+    }
+    .profile-card {
+      background: var(--blue);
+      padding: 1.75rem 1.5rem;
+      transition: background 0.2s;
+    }
+    .profile-card:hover { background: rgba(255,255,255,0.08); }
+    .profile-icon { font-size: 1.8rem; margin-bottom: 0.75rem; }
+    .profile-card h3 { font-size: 1rem; font-weight: 700; color: var(--white); }
+
+    /* ── PROGRAMA (METODOLOGÍA) ── */
+    #program { background: var(--dark); color: var(--cream); }
+    #program h2 { margin-bottom: 0.75rem; }
+    .program-subtitle {
+      color: rgba(240,237,230,0.55);
+      font-size: 1.05rem;
+      margin-bottom: 4rem;
+      max-width: 560px;
+    }
+    .timeline { display: flex; flex-direction: column; gap: 0; }
+    .phase {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 0;
+      border-top: 1px solid rgba(240,237,230,0.1);
+      padding: 2rem 0;
+      transition: background 0.2s;
+    }
+    .phase:last-child { border-bottom: 1px solid rgba(240,237,230,0.1); }
+    .phase:hover { background: rgba(26,26,255,0.06); }
+    .phase-meta { padding-right: 2rem; }
+    .phase-week {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 0.35rem;
+    }
+    .phase-dates {
+      font-size: 0.85rem;
+      color: rgba(240,237,230,0.45);
+      font-weight: 500;
+    }
+    .phase-content h3 { font-size: 1.2rem; color: var(--cream); margin-bottom: 0.6rem; }
+    .phase-content p { color: rgba(240,237,230,0.6); font-size: 0.95rem; line-height: 1.6; }
+    .phase-output {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin-top: 1rem;
+      background: rgba(26,26,255,0.15);
+      border: 1px solid rgba(26,26,255,0.3);
+      color: var(--blue);
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 0.3rem 0.75rem;
+      border-radius: 2px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .milestone-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin-top: 1rem;
+      background: rgba(26,26,255,0.3);
+      border: 1px solid var(--blue);
+      color: var(--white);
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 0.3rem 0.75rem;
+      border-radius: 2px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    /* ── QUÉ RECIBES ── */
+    #benefits { background: var(--cream); color: var(--dark); }
+    #benefits h2 { color: var(--dark); margin-bottom: 3.5rem; }
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2px;
+      background: rgba(20,20,20,0.1);
+    }
+    .benefit-card {
+      background: var(--cream);
+      padding: 2.5rem 2rem;
+      transition: background 0.2s;
+    }
+    .benefit-card:hover { background: var(--white); }
+    .benefit-num {
+      font-size: 3.5rem;
+      font-weight: 700;
+      color: var(--blue);
+      line-height: 1;
+      margin-bottom: 1rem;
+      font-variant-numeric: tabular-nums;
+    }
+    .benefit-card h3 {
+      font-size: 1.25rem;
+      color: var(--dark);
+      margin-bottom: 0.75rem;
+    }
+    .benefit-card p { color: rgba(20,20,20,0.65); font-size: 0.95rem; line-height: 1.6; }
+
+    /* ── QUÉ CONSTRUIMOS ── */
+    #build { background: var(--dark); color: var(--cream); }
+    .build-header { margin-bottom: 3.5rem; }
+    #build h2 { max-width: 700px; }
+    .build-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+    .build-item {
+      border: 1px solid rgba(240,237,230,0.12);
+      padding: 2rem 1.75rem;
+      border-radius: 2px;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .build-item:hover {
+      border-color: var(--blue);
+      background: rgba(26,26,255,0.05);
+    }
+    .build-item-dot {
+      width: 10px; height: 10px;
+      background: var(--blue);
+      border-radius: 50%;
+      margin-bottom: 1.25rem;
+    }
+    .build-item p { color: rgba(240,237,230,0.75); font-size: 1rem; line-height: 1.55; }
+
+    /* ── CTA FINAL ── */
+    #cta { background: var(--blue); color: var(--white); padding: 8rem 0; }
+    .cta-inner { text-align: center; max-width: 760px; margin: 0 auto; }
+    #cta h2 { color: var(--white); margin-bottom: 1.25rem; }
+    .cta-sub {
+      color: rgba(255,255,255,0.8);
+      font-size: 1.1rem;
+      margin-bottom: 2.5rem;
+      line-height: 1.6;
+    }
+    .btn-white {
+      background: var(--white);
+      color: var(--blue);
+      text-decoration: none;
+      padding: 1.1rem 2.8rem;
+      font-size: 1rem;
+      font-weight: 700;
+      border-radius: 2px;
+      display: inline-block;
+      transition: transform 0.2s, opacity 0.2s;
+    }
+    .btn-white:hover { transform: translateY(-3px); opacity: 0.92; }
+    .cta-note {
+      margin-top: 1.5rem;
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.5);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--dark);
+      border-top: 1px solid rgba(240,237,230,0.08);
+      padding: 2.5rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: gap;
+      gap: 1rem;
+    }
+    footer svg .st0 { fill: rgba(240,237,230,0.3); }
+    footer svg { height: 22px; width: auto; }
+    .footer-copy {
+      font-size: 0.8rem;
+      color: rgba(240,237,230,0.3);
+      letter-spacing: 0.04em;
+    }
+
+    /* ── SCROLL REVEAL (simple fade-in) ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .benefits-grid { grid-template-columns: 1fr; }
+      .phase { grid-template-columns: 1fr; }
+      .phase-meta { padding-right: 0; margin-bottom: 0.5rem; }
+      nav { padding: 1rem 1.25rem; }
+      .nav-cta { display: none; }
+      footer { flex-direction: column; align-items: flex-start; }
+    }
+
+    @media (max-width: 480px) {
+      section { padding: 4rem 0; }
+      .hero-inner { padding: 0 1.25rem 4rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── NAV ── -->
+  <nav>
+    <a class="nav-logo" href="#">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 523.9 129.9">
+        <defs><style>.nst0{fill:#F0EDE6}</style></defs>
+        <g>
+          <path class="nst0" d="M156.4,92.7l26-58.4c.7-1.6,2.3-2.6,4-2.6h19.6c2.1,0,4,1.5,4.3,3.6l9.6,58.4c.4,2.7-1.6,5.1-4.3,5.1h-10.8c-2.2,0-4-1.6-4.3-3.7l-.8-5.3c-.3-2.1-2.2-3.7-4.3-3.7h-13.5c-1.7,0-3.3,1-4,2.6l-3.3,7.5c-.7,1.6-2.3,2.6-4,2.6h-10.2c-3.2,0-5.3-3.2-4-6.1ZM191.4,69.6h1.3c2.6,0,4.7-2.3,4.3-4.9l-2.3-17.6h-.6l-6.8,16.4c-1.2,2.9.9,6,4,6Z"/>
+          <path class="nst0" d="M288.4,50v.5c-1.5,10.2-9,16.2-19.1,16.8v.6c8.8.8,12.8,5.5,13.3,15.3l.6,11.3h0c.2,2.3-1.7,4.3-4,4.3h-10.7c-2.3,0-4.2-1.8-4.3-4.2h0s-.4-12.4-.4-12.4h0c-.4-4.7-1.9-6-7.2-6h-4.8c-2.2,0-4,1.6-4.3,3.8l-2.1,15c-.3,2.2-2.1,3.8-4.3,3.8h-9.7c-2.6,0-4.7-2.3-4.3-5l8.3-58.4c.3-2.1,2.1-3.7,4.3-3.7h30.6c13.3,0,20,6.4,18.3,18.2ZM260,60.6c5.4,0,8.7-2.2,9.3-6.4v-.5c.7-4-1.8-6.2-6.9-6.2h-6.7c-2.2,0-4,1.6-4.3,3.7l-.6,4.4c-.4,2.6,1.7,5,4.3,5h4.9Z"/>
+          <path class="nst0" d="M290.6,93.9l8.3-58.4c.3-2.1,2.1-3.7,4.3-3.7h41c2.6,0,4.7,2.3,4.3,5l-1,7.3c-.3,2.2-2.1,3.8-4.3,3.8h-23.8c-2.2,0-4,1.6-4.3,3.7v.9c-.5,2.6,1.5,5,4.2,5h18.9c2.6,0,4.7,2.3,4.3,5l-.8,5.9c-.3,2.1-2.1,3.7-4.3,3.7h-21.3c-2.2,0-4,1.6-4.3,3.8l-.3,2c-.4,2.6,1.7,5,4.3,5h21.4c2.6,0,4.7,2.3,4.3,5l-1,7.3c-.3,2.2-2.1,3.8-4.3,3.8h-41c-2.6,0-4.7-2.3-4.3-5Z"/>
+          <path class="nst0" d="M348.6,93.9l8.3-58.4c.3-2.1,2.1-3.7,4.3-3.7h19.3c2,0,3.8,1.4,4.2,3.4l10.6,44.7h.7c.6-7.4,1.2-13.5,2-18.6l3.6-25.7c.3-2.2,2.1-3.8,4.3-3.8h8.5c2.6,0,4.7,2.3,4.3,5l-8.3,58.4c-.3,2.1-2.1,3.7-4.3,3.7h-19.4c-2,0-3.8-1.4-4.2-3.4l-10.6-44.7h-.7c-.7,7.2-1.2,13.7-2,19.6l-3.5,24.8c-.3,2.2-2.1,3.8-4.3,3.8h-8.5c-2.6,0-4.7-2.3-4.3-5Z"/>
+          <path class="nst0" d="M418.1,92.7l26-58.4c.7-1.6,2.3-2.6,4-2.6h19.6c2.1,0,4,1.5,4.3,3.6l9.6,58.4c.4,2.7-1.6,5.1-4.3,5.1h-10.8c-2.2,0-4-1.6-4.3-3.7l-.8-5.3c-.3-2.1-2.2-3.7-4.3-3.7h-13.5c-1.7,0-3.3,1-4,2.6l-3.3,7.5c-.7,1.6-2.3,2.6-4,2.6h-10.2c-3.2,0-5.3-3.2-4-6.1ZM453.1,69.6h1.3c2.6,0,4.7-2.3,4.3-4.9l-2.3-17.6h-.6l-6.8,16.4c-1.2,2.9.9,6,4,6Z"/>
+        </g>
+        <g>
+          <path class="nst0" d="M141.4,65.5c0-1.5-.8-2.8-2.1-3.4l-2.8-1.4c-.7-.4-.7-1.4,0-1.7l2.8-1.4c1.3-.7,2.1-2,2.1-3.4,0-1.5-.8-2.8-2.1-3.4l-51.7-26.1h0c-3.7-1.9-8.1-1.9-11.7,0l-51.7,26.1c-1.3.7-2.1,2-2.1,3.4,0,1.5.8,2.8,2.1,3.4l2.8,1.4c.7.4.7,1.4,0,1.7l-2.8,1.4c-1.3.7-2.1,2-2.1,3.4,0,1.5.8,2.8,2.1,3.4l2.8,1.4c.7.4.7,1.4,0,1.7l-2.8,1.4c-1.3.7-2.1,2-2.1,3.4,0,1.5.8,2.8,2.1,3.4l51.7,26.1c1.8.9,3.9,1.4,5.9,1.4s4-.5,5.9-1.4l51.7-26.1c1.3-.7,2.1-2,2.1-3.4,0-1.5-.8-2.8-2.1-3.4l-2.8-1.4c-.7-.4-.7-1.4,0-1.7l2.8-1.4c1.3-.7,2.1-2,2.1-3.4ZM28,54.9c-.7-.4-.7-1.4,0-1.7l49.7-25.1c2.6-1.3,5.5-1.3,8.1,0l49.7,25.1c.7.4.7,1.4,0,1.7l-4.7,2.4c-.3.1-.6.1-.9,0l-42.3-21.4h0c-3.7-1.9-8.1-1.9-11.7,0l-42.3,21.4c-.3.1-.6.1-.9,0l-4.7-2.4ZM85.1,80.4c-2.1,1.1-4.6,1.1-6.7,0l-27.8-14.1c-.7-.4-.7-1.4,0-1.7l27.8-14.1c2.1-1.1,4.6-1.1,6.7,0l27.8,14.1c.7.4.7,1.4,0,1.7l-27.8,14.1ZM119.5,67.9l4.7,2.4c.7.4.7,1.4,0,1.7l-38.4,19.4c-2.6,1.3-5.5,1.3-8.1,0l-38.4-19.4c-.7-.4-.7-1.4,0-1.7l4.7-2.4c.3-.1.6-.1.9,0l31,15.7c1.8.9,3.9,1.4,5.9,1.4s4-.5,5.9-1.4l31-15.7c.3-.1.6-.1.9,0ZM87.6,47.3h0c-3.7-1.9-8.1-1.9-11.7,0l-31,15.7c-.3.1-.6.1-.9,0l-4.7-2.4c-.7-.4-.7-1.4,0-1.7l38.4-19.4c2.6-1.3,5.5-1.3,8.1,0l38.4,19.4c.7.4.7,1.4,0,1.7l-4.7,2.4c-.3.1-.6.1-.9,0l-31-15.7ZM28,64.6l4.7-2.4c.3-.1.6-.1.9,0l4.7,2.4c.7.4.7,1.4,0,1.7l-4.7,2.4c-.3.1-.6.1-.9,0l-4.7-2.4c-.7-.4-.7-1.4,0-1.7ZM135.4,76c.7.4.7,1.4,0,1.7l-49.7,25.1c-2.6,1.3-5.5,1.3-8.1,0l-49.7-25.1c-.7-.4-.7-1.4,0-1.7l4.7-2.4c.3-.1.6-.1.9,0l42.3,21.4c1.8.9,3.9,1.4,5.9,1.4s4-.5,5.9-1.4l42.3-21.4c.3-.1.6-.1.9,0l4.7,2.4ZM129.9,68.7l-4.7-2.4c-.7-.4-.7-1.4,0-1.7l4.7-2.4c.3-.1.6-.1.9,0l4.7,2.4c.7.4.7,1.4,0,1.7l-4.7,2.4c-.3.1-.6.1-.9,0Z"/>
+          <path class="nst0" d="M102.2,64.9l-18.3-9.2c-1.4-.7-3-.7-4.4,0l-18.3,9.2c-.5.2-.5.9,0,1.1l18.3,9.2c1.4.7,3,.7,4.4,0l18.3-9.2c.5-.2.5-.9,0-1.1ZM81.8,71.4c-1.9,0-3.2-1.8-2.7-3.6l2.6-9.4h.3l2.6,9.4c.5,1.8-.9,3.6-2.7,3.6Z"/>
+        </g>
+      </svg>
+    </a>
+    <span style="font-size:0.78rem; color:rgba(240,237,230,0.4); letter-spacing:0.06em; text-transform:uppercase; display:none;" class="nav-parent">Gimnasio Creativo Social</span>
+    <a href="#cta" class="nav-cta">Aplicar ahora</a>
+  </nav>
+
+  <!-- ── HERO ── -->
+  <section id="hero">
+    <svg class="hero-bg-isotipo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 159.5 129.9">
+      <path d="M141.4,65.5c0-1.5-.8-2.8-2.1-3.4l-2.8-1.4c-.7-.4-.7-1.4,0-1.7l2.8-1.4c1.3-.7,2.1-2,2.1-3.4,0-1.5-.8-2.8-2.1-3.4l-51.7-26.1h0c-3.7-1.9-8.1-1.9-11.7,0l-51.7,26.1c-1.3.7-2.1,2-2.1,3.4,0,1.5.8,2.8,2.1,3.4l2.8,1.4c.7.4.7,1.4,0,1.7l-2.8,1.4c-1.3.7-2.1,2-2.1,3.4,0,1.5.8,2.8,2.1,3.4l2.8,1.4c.7.4.7,1.4,0,1.7l-2.8,1.4c-1.3.7-2.1,2-2.1,3.4,0,1.5.8,2.8,2.1,3.4l51.7,26.1c1.8.9,3.9,1.4,5.9,1.4s4-.5,5.9-1.4l51.7-26.1c1.3-.7,2.1-2,2.1-3.4,0-1.5-.8-2.8-2.1-3.4l-2.8-1.4c-.7-.4-.7-1.4,0-1.7l2.8-1.4c1.3-.7,2.1-2,2.1-3.4ZM28,54.9c-.7-.4-.7-1.4,0-1.7l49.7-25.1c2.6-1.3,5.5-1.3,8.1,0l49.7,25.1c.7.4.7,1.4,0,1.7l-4.7,2.4c-.3.1-.6.1-.9,0l-42.3-21.4h0c-3.7-1.9-8.1-1.9-11.7,0l-42.3,21.4c-.3.1-.6.1-.9,0l-4.7-2.4ZM85.1,80.4c-2.1,1.1-4.6,1.1-6.7,0l-27.8-14.1c-.7-.4-.7-1.4,0-1.7l27.8-14.1c2.1-1.1,4.6-1.1,6.7,0l27.8,14.1c.7.4.7,1.4,0,1.7l-27.8,14.1ZM119.5,67.9l4.7,2.4c.7.4.7,1.4,0,1.7l-38.4,19.4c-2.6,1.3-5.5,1.3-8.1,0l-38.4-19.4c-.7-.4-.7-1.4,0-1.7l4.7-2.4c.3-.1.6-.1.9,0l31,15.7c1.8.9,3.9,1.4,5.9,1.4s4-.5,5.9-1.4l31-15.7c.3-.1.6-.1.9,0ZM87.6,47.3h0c-3.7-1.9-8.1-1.9-11.7,0l-31,15.7c-.3.1-.6.1-.9,0l-4.7-2.4c-.7-.4-.7-1.4,0-1.7l38.4-19.4c2.6-1.3,5.5-1.3,8.1,0l38.4,19.4c.7.4.7,1.4,0,1.7l-4.7,2.4c-.3.1-.6.1-.9,0l-31-15.7ZM28,64.6l4.7-2.4c.3-.1.6-.1.9,0l4.7,2.4c.7.4.7,1.4,0,1.7l-4.7,2.4c-.3.1-.6.1-.9,0l-4.7-2.4c-.7-.4-.7-1.4,0-1.7ZM135.4,76c.7.4.7,1.4,0,1.7l-49.7,25.1c-2.6,1.3-5.5,1.3-8.1,0l-49.7-25.1c-.7-.4-.7-1.4,0-1.7l4.7-2.4c.3-.1.6-.1.9,0l42.3,21.4c1.8.9,3.9,1.4,5.9,1.4s4-.5,5.9-1.4l42.3-21.4c.3-.1.6-.1.9,0l4.7,2.4ZM129.9,68.7l-4.7-2.4c-.7-.4-.7-1.4,0-1.7l4.7-2.4c.3-.1.6-.1.9,0l4.7,2.4c.7.4.7,1.4,0,1.7l-4.7,2.4c-.3.1-.6.1-.9,0Z"/>
+      <path d="M102.2,64.9l-18.3-9.2c-1.4-.7-3-.7-4.4,0l-18.3,9.2c-.5.2-.5.9,0,1.1l18.3,9.2c1.4.7,3,.7,4.4,0l18.3-9.2c.5-.2.5-.9,0-1.1ZM81.8,71.4c-1.9,0-3.2-1.8-2.7-3.6l2.6-9.4h.3l2.6,9.4c.5,1.8-.9,3.6-2.7,3.6Z"/>
+    </svg>
+    <div class="hero-inner">
+      <span class="hero-tag">Gimnasio Creativo Social · Convocatoria 2026</span>
+      <div class="hero-logo-lockup">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="58 0 397 129.9" class="hero-logo-svg">
+          <defs><style>.hlst0{fill:#F0EDE6}</style></defs>
+          <path class="hlst0" d="M65.5,92.7l26-58.4c.7-1.6,2.3-2.6,4-2.6h19.6c2.1,0,4,1.5,4.3,3.6l9.6,58.4c.4,2.7-1.6,5.1-4.3,5.1h-10.8c-2.2,0-4-1.6-4.3-3.7l-.8-5.3c-.3-2.1-2.2-3.7-4.3-3.7h-13.5c-1.7,0-3.3,1-4,2.6l-3.3,7.5c-.7,1.6-2.3,2.6-4,2.6h-10.2c-3.2,0-5.3-3.2-4-6.1ZM100.5,69.6h1.3c2.6,0,4.7-2.3,4.3-4.9l-2.3-17.6h-.6l-6.8,16.4c-1.2,2.9.9,6,4,6Z"/>
+          <path class="hlst0" d="M197.5,50v.5c-1.5,10.2-9,16.2-19.1,16.8v.6c8.8.8,12.8,5.5,13.3,15.3l.6,11.3h0c.2,2.3-1.7,4.3-4,4.3h-10.7c-2.3,0-4.2-1.8-4.3-4.2h0s-.4-12.4-.4-12.4h0c-.4-4.7-1.9-6-7.2-6h-4.8c-2.2,0-4,1.6-4.3,3.8l-2.1,15c-.3,2.2-2.1,3.8-4.3,3.8h-9.7c-2.6,0-4.7-2.3-4.3-5l8.3-58.4c.3-2.1,2.1-3.7,4.3-3.7h30.6c13.3,0,20,6.4,18.3,18.2ZM169.1,60.6c5.4,0,8.7-2.2,9.3-6.4v-.5c.7-4-1.8-6.2-6.9-6.2h-6.7c-2.2,0-4,1.6-4.3,3.7l-.6,4.4c-.4,2.6,1.7,5,4.3,5h4.9Z"/>
+          <path class="hlst0" d="M199.7,93.9l8.3-58.4c.3-2.1,2.1-3.7,4.3-3.7h41c2.6,0,4.7,2.3,4.3,5l-1,7.3c-.3,2.2-2.1,3.8-4.3,3.8h-23.8c-2.2,0-4,1.6-4.3,3.7v.9c-.5,2.6,1.5,5,4.2,5h18.9c2.6,0,4.7,2.3,4.3,5l-.8,5.9c-.3,2.1-2.1,3.7-4.3,3.7h-21.3c-2.2,0-4,1.6-4.3,3.8l-.3,2c-.4,2.6,1.7,5,4.3,5h21.4c2.6,0,4.7,2.3,4.3,5l-1,7.3c-.3,2.2-2.1,3.8-4.3,3.8h-41c-2.6,0-4.7-2.3-4.3-5Z"/>
+          <path class="hlst0" d="M257.7,93.9l8.3-58.4c.3-2.1,2.1-3.7,4.3-3.7h19.3c2,0,3.8,1.4,4.2,3.4l10.6,44.7h.7c.6-7.4,1.2-13.5,2-18.6l3.6-25.7c.3-2.2,2.1-3.8,4.3-3.8h8.5c2.6,0,4.7,2.3,4.3,5l-8.3,58.4c-.3,2.1-2.1,3.7-4.3,3.7h-19.4c-2,0-3.8-1.4-4.2-3.4l-10.6-44.7h-.7c-.7,7.2-1.2,13.7-2,19.6l-3.5,24.8c-.3,2.2-2.1,3.8-4.3,3.8h-8.5c-2.6,0-4.7-2.3-4.3-5Z"/>
+          <path class="hlst0" d="M327.2,92.7l26-58.4c.7-1.6,2.3-2.6,4-2.6h19.6c2.1,0,4,1.5,4.3,3.6l9.6,58.4c.4,2.7-1.6,5.1-4.3,5.1h-10.8c-2.2,0-4-1.6-4.3-3.7l-.8-5.3c-.3-2.1-2.2-3.7-4.3-3.7h-13.5c-1.7,0-3.3,1-4,2.6l-3.3,7.5c-.7,1.6-2.3,2.6-4,2.6h-10.2c-3.2,0-5.3-3.2-4-6.1ZM362.2,69.6h1.3c2.6,0,4.7-2.3,4.3-4.9l-2.3-17.6h-.6l-6.8,16.4c-1.2,2.9.9,6,4,6Z"/>
+        </svg>
+        <p class="hero-gym-label">Narrative Gym</p>
+      </div>
+      <p class="hero-sub">
+        Un espacio de creación colectiva dentro del Gimnasio Creativo Social para producir narrativas económicas con rigor, creatividad e impacto público real.
+      </p>
+      <div class="hero-actions">
+        <a href="#cta" class="btn-primary">Quiero aplicar</a>
+        <a href="#about" class="btn-ghost">Conocer el programa</a>
+      </div>
+      <p class="hero-date">Programa: <strong>1 de abril — 29 de mayo, 2026</strong> · 8 semanas · Online + presencial</p>
+    </div>
+  </section>
+
+  <!-- ── ABOUT ── -->
+  <section id="about">
+    <div class="container">
+      <div class="about-grid">
+        <div>
+          <p style="font-size:0.78rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--blue); margin-bottom:0.75rem;">Parte del Gimnasio Creativo Social</p>
+          <h2 class="reveal">Arena es donde el análisis se convierte en narrativa.</h2>
+        </div>
+        <div>
+          <p class="about-lead reveal">
+            Arena es el narrative gym del Gimnasio Creativo Social: un espacio diseñado para que creadores digitales transformen debates económicos complejos en historias con impacto público.
+          </p>
+          <p class="about-body reveal">
+            El Gimnasio Creativo Social es el proyecto marco que construye infraestructura narrativa para la nueva economía. Arena es su primera edición especializada: un programa de 8 semanas donde periodistas, economistas, diseñadores, activistas e ilustradores trabajan colectivamente para producir contenido riguroso, accesible y estratégicamente distribuido.
+          </p>
+        </div>
+      </div>
+
+      <div class="about-stat-block" style="margin-top:5rem; display:grid; grid-template-columns: repeat(3,1fr); gap:2rem;">
+        <div class="stat reveal">
+          <div class="stat-num">8</div>
+          <div class="stat-label">Creadores seleccionados</div>
+        </div>
+        <div class="stat reveal">
+          <div class="stat-num">10</div>
+          <div class="stat-label">Guiones de video producidos</div>
+        </div>
+        <div class="stat reveal">
+          <div class="stat-num">8</div>
+          <div class="stat-label">Semanas de programa intensivo</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── WHO ── -->
+  <section id="who">
+    <div class="container">
+      <h2 class="reveal">¿A quién buscamos?</h2>
+      <p class="who-lead reveal">
+        Una red de profesionales transdisciplinarios comprometidos con producir conocimiento económico de forma coordinada y accesible para audiencias jóvenes y no especializadas.
+      </p>
+      <div class="profiles-grid reveal">
+        <div class="profile-card">
+          <div class="profile-icon">✍️</div>
+          <h3>Periodistas</h3>
+        </div>
+        <div class="profile-card">
+          <div class="profile-icon">📊</div>
+          <h3>Economistas</h3>
+        </div>
+        <div class="profile-card">
+          <div class="profile-icon">🎨</div>
+          <h3>Diseñadores</h3>
+        </div>
+        <div class="profile-card">
+          <div class="profile-icon">✊</div>
+          <h3>Activistas</h3>
+        </div>
+        <div class="profile-card">
+          <div class="profile-icon">🖼️</div>
+          <h3>Ilustradores</h3>
+        </div>
+        <div class="profile-card">
+          <div class="profile-icon">💻</div>
+          <h3>Programadores</h3>
+        </div>
+        <div class="profile-card">
+          <div class="profile-icon">📣</div>
+          <h3>Comunicadores</h3>
+        </div>
+        <div class="profile-card">
+          <div class="profile-icon">🔍</div>
+          <h3>Investigadores</h3>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── PROGRAM ── -->
+  <section id="program">
+    <div class="container">
+      <h2 class="reveal">Metodología y<br/>cronograma</h2>
+      <p class="program-subtitle reveal">Online con un encuentro presencial en Ciudad de México. Investigación, crítica colectiva y acompañamiento editorial.</p>
+
+      <div class="timeline">
+
+        <div class="phase reveal">
+          <div class="phase-meta">
+            <div class="phase-week">Semana 1</div>
+            <div class="phase-dates">1–3 de abril</div>
+          </div>
+          <div class="phase-content">
+            <h3>Apertura y Marco Conceptual</h3>
+            <p>Sesión virtual de apertura. Introducción a las narrativas de la Nueva Economía, alineación editorial, mapeo de preguntas y direcciones temáticas.</p>
+            <span class="phase-output">↳ Concepto + outline de los primeros 2 guiones</span>
+          </div>
+        </div>
+
+        <div class="phase reveal">
+          <div class="phase-meta">
+            <div class="phase-week">Semanas 2–3</div>
+            <div class="phase-dates">6–17 de abril</div>
+          </div>
+          <div class="phase-content">
+            <h3>Laboratorio de Investigación</h3>
+            <p>Sesión grupal virtual. Investigación colectiva sobre justicia fiscal, medioambiente y género. Sesiones de crítica metodológica y narrativa.</p>
+            <span class="phase-output">↳ 3–4 guiones desarrollados</span>
+          </div>
+        </div>
+
+        <div class="phase reveal">
+          <div class="phase-meta">
+            <div class="phase-week">Semana 4</div>
+            <div class="phase-dates">20–26 de abril · CDMX</div>
+          </div>
+          <div class="phase-content">
+            <h3>Laboratorio Creativo Presencial ★</h3>
+            <p>Encuentro presencial en Ciudad de México. Taller de co-creación, clínicas editoriales, refinamiento de guiones y retroalimentación entre pares.</p>
+            <span class="milestone-badge">★ Milestone: 5 guiones listos para producción</span>
+          </div>
+        </div>
+
+        <div class="phase reveal">
+          <div class="phase-meta">
+            <div class="phase-week">Semanas 5–7</div>
+            <div class="phase-dates">27 abr – 15 may</div>
+          </div>
+          <div class="phase-content">
+            <h3>Iteración y Producción</h3>
+            <p>Sesión grupal + sesión en grupo pequeño. Acompañamiento editorial continuo. Entrega progresiva de guiones para postproducción profesional.</p>
+            <span class="phase-output">↳ 10 guiones completos</span>
+          </div>
+        </div>
+
+        <div class="phase reveal">
+          <div class="phase-meta">
+            <div class="phase-week">Semana 8</div>
+            <div class="phase-dates">18–29 de mayo</div>
+          </div>
+          <div class="phase-content">
+            <h3>Cierre y Estrategia de Distribución</h3>
+            <p>Sesión virtual final. Estrategias de publicación y alcance. Formación en sostenibilidad mediática. Evaluación colectiva y oportunidades de colaboración futura.</p>
+            <span class="phase-output">↳ Red activa + videos listos para publicación</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── BENEFITS ── -->
+  <section id="benefits">
+    <div class="container">
+      <h2 class="reveal">¿Qué recibes al participar?</h2>
+      <div class="benefits-grid">
+
+        <div class="benefit-card reveal">
+          <div class="benefit-num">01</div>
+          <h3>Acompañamiento editorial</h3>
+          <p>Un espacio de investigación colectiva y crítica constructiva que fortalece la calidad conceptual y narrativa de cada proyecto.</p>
+        </div>
+
+        <div class="benefit-card reveal">
+          <div class="benefit-num">02</div>
+          <h3>Postproducción profesional</h3>
+          <p>Edición de video y diseño gráfico para acelerar la producción y elevar los estándares visuales de tu contenido.</p>
+        </div>
+
+        <div class="benefit-card reveal">
+          <div class="benefit-num">03</div>
+          <h3>Formación en sostenibilidad mediática</h3>
+          <p>Herramientas para construir modelos de ingresos, alianzas y estabilidad profesional en el ecosistema digital.</p>
+        </div>
+
+        <div class="benefit-card reveal">
+          <div class="benefit-num">04</div>
+          <h3>Comunidad estratégica</h3>
+          <p>Una red de creadores que deja de trabajar en aislamiento y empieza a producir conocimiento económico de forma coordinada.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── BUILD ── -->
+  <section id="build">
+    <div class="container">
+      <div class="build-header">
+        <h2 class="reveal">¿Qué construimos juntos?</h2>
+      </div>
+      <div class="build-grid">
+        <div class="build-item reveal">
+          <div class="build-item-dot"></div>
+          <p>Proyectos digitales que traducen debates económicos complejos en lenguaje accesible.</p>
+        </div>
+        <div class="build-item reveal">
+          <div class="build-item-dot"></div>
+          <p>Capacidades narrativas en justicia fiscal, medioambiente y género.</p>
+        </div>
+        <div class="build-item reveal">
+          <div class="build-item-dot"></div>
+          <p>Prácticas de rigor periodístico y crítica colectiva.</p>
+        </div>
+        <div class="build-item reveal">
+          <div class="build-item-dot"></div>
+          <p>Una infraestructura narrativa sostenible para la economía progresista.</p>
+        </div>
+        <div class="build-item reveal">
+          <div class="build-item-dot"></div>
+          <p>Contenido capaz de desafiar el sentido común económico en el espacio público digital.</p>
+        </div>
+        <div class="build-item reveal">
+          <div class="build-item-dot"></div>
+          <p>Una plataforma para amplificar voces que ya hablan — y que pueden hacerlo mejor, más fuerte y con mayor impacto.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CTA ── -->
+  <section id="cta">
+    <div class="container">
+      <div class="cta-inner">
+        <h2 class="reveal">Si quieres producir contenido sobre la nueva economía con rigor, creatividad y comunidad — este espacio es para ti.</h2>
+        <p class="cta-sub reveal">El programa comienza el 1 de abril de 2026. Las plazas son limitadas: solo 8 creadores.</p>
+        <a href="#" class="btn-white reveal">Aplicar al programa</a>
+        <p class="cta-note">Los videos se publicarán en las plataformas propias de cada participante con soporte de postproducción profesional.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer>
+    <div style="max-width:1200px; margin:0 auto; width:100%; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:1rem;">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 159.5 129.9" style="height:36px; width:auto; opacity:0.5;">
+        <defs><style>.ist0{fill:#ffffff}</style></defs>
+        <path class="ist0" d="M141.4,65.5c0-1.5-.8-2.8-2.1-3.4l-2.8-1.4c-.7-.4-.7-1.4,0-1.7l2.8-1.4c1.3-.7,2.1-2,2.1-3.4,0-1.5-.8-2.8-2.1-3.4l-51.7-26.1h0c-3.7-1.9-8.1-1.9-11.7,0l-51.7,26.1c-1.3.7-2.1,2-2.1,3.4,0,1.5.8,2.8,2.1,3.4l2.8,1.4c.7.4.7,1.4,0,1.7l-2.8,1.4c-1.3.7-2.1,2-2.1,3.4,0,1.5.8,2.8,2.1,3.4l2.8,1.4c.7.4.7,1.4,0,1.7l-2.8,1.4c-1.3.7-2.1,2-2.1,3.4,0,1.5.8,2.8,2.1,3.4l51.7,26.1c1.8.9,3.9,1.4,5.9,1.4s4-.5,5.9-1.4l51.7-26.1c1.3-.7,2.1-2,2.1-3.4,0-1.5-.8-2.8-2.1-3.4l-2.8-1.4c-.7-.4-.7-1.4,0-1.7l2.8-1.4c1.3-.7,2.1-2,2.1-3.4ZM28,54.9c-.7-.4-.7-1.4,0-1.7l49.7-25.1c2.6-1.3,5.5-1.3,8.1,0l49.7,25.1c.7.4.7,1.4,0,1.7l-4.7,2.4c-.3.1-.6.1-.9,0l-42.3-21.4h0c-3.7-1.9-8.1-1.9-11.7,0l-42.3,21.4c-.3.1-.6.1-.9,0l-4.7-2.4ZM85.1,80.4c-2.1,1.1-4.6,1.1-6.7,0l-27.8-14.1c-.7-.4-.7-1.4,0-1.7l27.8-14.1c2.1-1.1,4.6-1.1,6.7,0l27.8,14.1c.7.4.7,1.4,0,1.7l-27.8,14.1ZM119.5,67.9l4.7,2.4c.7.4.7,1.4,0,1.7l-38.4,19.4c-2.6,1.3-5.5,1.3-8.1,0l-38.4-19.4c-.7-.4-.7-1.4,0-1.7l4.7-2.4c.3-.1.6-.1.9,0l31,15.7c1.8.9,3.9,1.4,5.9,1.4s4-.5,5.9-1.4l31-15.7c.3-.1.6-.1.9,0ZM87.6,47.3h0c-3.7-1.9-8.1-1.9-11.7,0l-31,15.7c-.3.1-.6.1-.9,0l-4.7-2.4c-.7-.4-.7-1.4,0-1.7l38.4-19.4c2.6-1.3,5.5-1.3,8.1,0l38.4,19.4c.7.4.7,1.4,0,1.7l-4.7,2.4c-.3.1-.6.1-.9,0l-31-15.7ZM28,64.6l4.7-2.4c.3-.1.6-.1.9,0l4.7,2.4c.7.4.7,1.4,0,1.7l-4.7,2.4c-.3.1-.6.1-.9,0l-4.7-2.4c-.7-.4-.7-1.4,0-1.7ZM135.4,76c.7.4.7,1.4,0,1.7l-49.7,25.1c-2.6,1.3-5.5,1.3-8.1,0l-49.7-25.1c-.7-.4-.7-1.4,0-1.7l4.7-2.4c.3-.1.6-.1.9,0l42.3,21.4c1.8.9,3.9,1.4,5.9,1.4s4-.5,5.9-1.4l42.3-21.4c.3-.1.6-.1.9,0l4.7,2.4ZM129.9,68.7l-4.7-2.4c-.7-.4-.7-1.4,0-1.7l4.7-2.4c.3-.1.6-.1.9,0l4.7,2.4c.7.4.7,1.4,0,1.7l-4.7,2.4c-.3.1-.6.1-.9,0Z"/>
+        <path class="ist0" d="M102.2,64.9l-18.3-9.2c-1.4-.7-3-.7-4.4,0l-18.3,9.2c-.5.2-.5.9,0,1.1l18.3,9.2c1.4.7,3,.7,4.4,0l18.3-9.2c.5-.2.5-.9,0-1.1ZM81.8,71.4c-1.9,0-3.2-1.8-2.7-3.6l2.6-9.4h.3l2.6,9.4c.5,1.8-.9,3.6-2.7,3.6Z"/>
+      </svg>
+      <span class="footer-copy">© 2026 Arena — Narrative Gym · Parte del Gimnasio Creativo Social</span>
+    </div>
+  </footer>
+
+  <!-- ── SCROLL REVEAL JS ── -->
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
