@@ -164,7 +164,7 @@ nav {
   margin-bottom: 1.5rem;
 }
 .about-body { color: rgba(20,20,20,0.72); }
-.about-stat-block { display: flex; flex-direction: column; gap: 2rem; padding-top: 0.5rem; }
+.about-stat-block { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; padding-top: 0.5rem; }
 .stat {
   border-left: 3px solid var(--blue);
   padding-left: 1.5rem;
@@ -453,6 +453,7 @@ footer svg { height: 22px; width: auto; }
 /* ── RESPONSIVE ── */
 @media (max-width: 768px) {
   .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+  .about-stat-block { grid-template-columns: 1fr; }
   .benefits-grid { grid-template-columns: 1fr; }
   .phase { grid-template-columns: 1fr; }
   .phase-meta { padding-right: 0; margin-bottom: 0.5rem; }
