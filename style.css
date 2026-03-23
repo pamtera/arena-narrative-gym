@@ -89,6 +89,33 @@ nav {
   max-width: 1200px;
   margin: 0 auto;
   width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  gap: 3rem;
+}
+.hero-content { flex: 1; min-width: 0; }
+.hero-image {
+  flex-shrink: 0;
+  display: flex;
+  align-items: flex-end;
+}
+.hero-image img {
+  height: calc(100vh - 350px);
+  width: auto;
+  max-width: 260px;
+  display: block;
+  animation: walk-in 1s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes walk-in {
+  from {
+    transform: translateX(120px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
 }
 .hero-tag {
   display: inline-block;
@@ -374,7 +401,7 @@ nav {
 #build h2 { max-width: 700px; }
 .build-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 1.5rem;
 }
 .build-item {
@@ -455,11 +482,14 @@ footer svg { height: 22px; width: auto; }
   .about-grid { grid-template-columns: 1fr; gap: 3rem; }
   .about-stat-block { grid-template-columns: 1fr; }
   .benefits-grid { grid-template-columns: 1fr; }
+  .build-grid { grid-template-columns: 1fr; }
   .phase { grid-template-columns: 1fr; }
   .phase-meta { padding-right: 0; margin-bottom: 0.5rem; }
   nav { padding: 1rem 1.25rem; }
   .nav-cta { display: none; }
   footer { flex-direction: column; align-items: flex-start; }
+  .hero-inner { flex-direction: column; align-items: flex-start; }
+  .hero-image { display: none; }
 }
 
 @media (max-width: 480px) {
