@@ -421,6 +421,13 @@ nav {
   margin-bottom: 1.25rem;
 }
 .build-item p { color: rgba(240,237,230,0.75); font-size: 1rem; line-height: 1.55; }
+.build-item--pesas {
+  background-image: url('img/pesas.svg');
+  background-repeat: no-repeat;
+  background-position: top center;
+  background-size: 85%;
+  overflow: hidden;
+}
 
 /* ── CTA FINAL ── */
 #cta { background: var(--blue); color: var(--white); padding: 8rem 0; }
