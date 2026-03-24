@@ -683,7 +683,7 @@ footer svg { height: 22px; width: auto; }
   .nav-cta { display: none; }
   /* Hero */
   #hero{
-    padding-top: 0;
+    padding-top: 78px;
   }
   .hero-inner { flex-direction: column; align-items: flex-start; }
   .hero-image { display: none; }

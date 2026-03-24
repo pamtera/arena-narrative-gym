@@ -412,8 +412,11 @@ Su trabajo se centra en derechos humanos, política y cultura, con un enfoque qu
       function generateTile() {
         const imageData = ctx.createImageData(TILE, TILE);
         const data = imageData.data;
+        const isMobile = window.matchMedia('(max-width: 768px)').matches;
+        const lo = isMobile ? 100 : 0;
+        const range = isMobile ? 80 : 255;
         for (let i = 0; i < data.length; i += 4) {
-          const v = Math.random() * 255 | 0;
+          const v = lo + (Math.random() * range | 0);
           data[i] = data[i+1] = data[i+2] = v;
           data[i+3] = 255;
         }
@@ -423,7 +426,8 @@ Su trabajo se centra en derechos humanos, política y cultura, con un enfoque qu
       }
 
       generateTile();
-      setInterval(generateTile, 80);
+      const isMobile = window.matchMedia('(max-width: 768px)').matches;
+      setInterval(generateTile, isMobile ? 180 : 80);
     })();
   </script>
 
