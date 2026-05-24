@@ -10,6 +10,41 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
+  <style>
+    .community-thumb-label {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 1.5rem 0.75rem 0.75rem;
+      background: linear-gradient(to top, rgba(20,20,20,0.85) 0%, transparent 100%);
+      display: flex;
+      flex-direction: column;
+      gap: 0.1rem;
+      transform: translateY(4px);
+      opacity: 0;
+      transition: opacity 0.25s, transform 0.25s;
+    }
+    .community-thumb:hover .community-thumb-label {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .community-thumb:hover img {
+      filter: grayscale(0%) !important;
+      transform: scale(1.04);
+    }
+    .community-thumb-name {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--cream);
+      letter-spacing: -0.01em;
+    }
+    .community-thumb-role {
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: rgba(240,237,230,0.55);
+    }
+  </style>
 </head>
 <body>
 
@@ -34,7 +69,7 @@
       </svg>
     </a>
     <span style="font-size:0.78rem; color:rgba(240,237,230,0.4); letter-spacing:0.06em; text-transform:uppercase; display:none;" class="nav-parent">Gimnasio Creativo Social</span>
-    <a href="https://forms.gle/wqaYii4Tocmc7Xn58" target="_blank"" class="nav-cta">Aplicar ahora</a>
+    <a href="cohorte-1.html" class="nav-cta">Primer Cohorte →</a>
   </nav>
 
   <!-- ── HERO ── -->
@@ -45,7 +80,7 @@
     </svg>
     <div class="hero-inner">
       <div class="hero-content">
-      <span class="hero-tag">Gimnasio Creativo Social · Convocatoria 2026</span>
+      <span class="hero-tag">Gimnasio Creativo Social · Gym Narrativo</span>
       <div class="hero-logo-lockup">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="58 0 397 129.9" class="hero-logo-svg">
           <defs><style>.hlst0{fill:#F0EDE6}</style></defs>
@@ -61,10 +96,10 @@
         Un espacio de creación colectiva para producir narrativas económicas con rigor, creatividad e impacto público.
       </p>
       <div class="hero-actions">
-        <a href="https://forms.gle/wqaYii4Tocmc7Xn58" target="_blank" class="btn-primary">Quiero aplicar</a>
+        <a href="cohorte-1.html" class="btn-primary">Ver Primer Cohorte</a>
         <a href="#about" class="btn-ghost">Conocer el programa</a>
       </div>
-      <p class="hero-date">Programa: <strong>1 de abril — 29 de mayo, 2026</strong> · 8 semanas · Online + presencial</p>
+      <p class="hero-date">Primer cohorte: <strong>Abril — Mayo 2026</strong> · 8 semanas · Online + Ciudad de México</p>
       </div>
       <div class="hero-image" style="display: none;">
         <img src="img/luchadora-rombo-4.svg" alt="Luchadora" />
@@ -297,13 +332,75 @@
     </div>
   </section>
 
+  <!-- ── COMUNIDAD ── -->
+  <section id="comunidad" style="padding:5rem 0 6rem; border-top:1px solid rgba(240,237,230,0.08);">
+    <div class="container">
+      <p style="font-size:0.72rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--blue); margin-bottom:1rem;" class="reveal">La comunidad</p>
+      <div style="display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:1.5rem; margin-bottom:3rem;">
+        <h2 class="reveal" style="margin-bottom:0;">Conoce al<br/>Primer Cohorte</h2>
+        <a href="cohorte-1.html" class="btn-ghost reveal">Ver todos →</a>
+      </div>
+
+      <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(160px, 1fr)); gap:2px;">
+
+        <a href="cohorte-1.html" style="text-decoration:none; display:block; position:relative; overflow:hidden; aspect-ratio:1/1; background:rgba(26,26,255,0.08);" class="reveal community-thumb">
+          <img src="img/cohorte-1/maynee.jpg" alt="Mayneé Cortez" style="width:100%;height:100%;object-fit:cover;object-position:center top;filter:grayscale(30%);transition:filter 0.3s,transform 0.4s;">
+          <div class="community-thumb-label">
+            <span class="community-thumb-name">Mayneé Cortez</span>
+            <span class="community-thumb-role">Psicóloga</span>
+          </div>
+        </a>
+
+        <a href="cohorte-1.html" style="text-decoration:none; display:block; position:relative; overflow:hidden; aspect-ratio:1/1; background:rgba(26,26,255,0.08);" class="reveal community-thumb">
+          <img src="img/cohorte-1/rodrigo-balvanera.jpg" alt="Rodrigo Balvanera" style="width:100%;height:100%;object-fit:cover;object-position:center top;filter:grayscale(30%);transition:filter 0.3s,transform 0.4s;">
+          <div class="community-thumb-label">
+            <span class="community-thumb-name">Rodrigo Balvanera</span>
+            <span class="community-thumb-role">Analista político</span>
+          </div>
+        </a>
+
+        <a href="cohorte-1.html" style="text-decoration:none; display:block; position:relative; overflow:hidden; aspect-ratio:1/1; background:rgba(26,26,255,0.08);" class="reveal community-thumb">
+          <img src="img/cohorte-1/valeria-angola.jpg" alt="Valeria Angola" style="width:100%;height:100%;object-fit:cover;object-position:center top;filter:grayscale(30%);transition:filter 0.3s,transform 0.4s;">
+          <div class="community-thumb-label">
+            <span class="community-thumb-name">Valeria Angola</span>
+            <span class="community-thumb-role">Activista</span>
+          </div>
+        </a>
+
+        <a href="cohorte-1.html" style="text-decoration:none; display:block; position:relative; overflow:hidden; aspect-ratio:1/1; background:rgba(26,26,255,0.08);" class="reveal community-thumb">
+          <img src="img/cohorte-1/adrian-chavez.jpg" alt="Adrián Chávez" style="width:100%;height:100%;object-fit:cover;object-position:center top;filter:grayscale(30%);transition:filter 0.3s,transform 0.4s;">
+          <div class="community-thumb-label">
+            <span class="community-thumb-name">Adrián Chávez</span>
+            <span class="community-thumb-role">Escritor</span>
+          </div>
+        </a>
+
+        <a href="cohorte-1.html" style="text-decoration:none; display:block; position:relative; overflow:hidden; aspect-ratio:1/1; background:rgba(26,26,255,0.08);" class="reveal community-thumb">
+          <img src="img/cohorte-1/sofia-probert.jpg" alt="Sofía Probert" style="width:100%;height:100%;object-fit:cover;object-position:center top;filter:grayscale(30%);transition:filter 0.3s,transform 0.4s;">
+          <div class="community-thumb-label">
+            <span class="community-thumb-name">Sofía Probert</span>
+            <span class="community-thumb-role">Bióloga · Artista</span>
+          </div>
+        </a>
+
+        <a href="cohorte-1.html" style="text-decoration:none; display:block; position:relative; overflow:hidden; aspect-ratio:1/1; background:rgba(26,26,255,0.08);" class="reveal community-thumb" aria-label="Ver todos los participantes">
+          <div style="width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(26,26,255,0.12);gap:0.5rem;">
+            <span style="font-size:1.8rem;font-weight:700;color:var(--cream);">+6</span>
+            <span style="font-size:0.7rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:rgba(240,237,230,0.5);">Ver todos</span>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
   <!-- ── CTA ── -->
   <section id="cta">
     <div class="container">
       <div class="cta-inner">
-        <h2 class="reveal">Si quieres producir contenido sobre la nueva economía con rigor, creatividad y comunidad — este espacio es para ti.</h2>
-        <p class="cta-sub reveal">El programa comienza el 1 de abril de 2026. Las plazas son limitadas: solo 10 creadores.</p>
-        <a href="https://forms.gle/wqaYii4Tocmc7Xn58" target="_blank" class="btn-white reveal">Aplicar al programa</a>
+        <h2 class="reveal">Arena te está esperando. <br>El siguiente cohorte está en camino.</h2>
+        <p class="cta-sub reveal">Si quieres producir contenido sobre la nueva economía con rigor, creatividad y comunidad — déjanos tu contacto para ser de los primeros en enterarte.</p>
+        <a href="https://forms.gle/wqaYii4Tocmc7Xn58" target="_blank" class="btn-white reveal">Quiero estar en el próximo cohorte</a>
         <p class="cta-note">Los videos se publicarán en las plataformas propias de cada participante con soporte de postproducción profesional.</p>
       </div>
     </div>
