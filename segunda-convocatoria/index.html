@@ -48,18 +48,100 @@
       color: rgba(240,237,230,0.55);
     }
 
-    /* Hero */
+    /* Hero — mosaico con fondos que rotan (ver JS al final) */
     #sc-hero {
       height: 100vh;
+      min-height: 620px;
+      padding: 0;
+      display: grid;
+      grid-template-columns: 52.5fr 26.2fr 21.3fr;
+      grid-template-rows: 22fr 41fr 9fr 28fr;
+      grid-template-areas:
+        "a    b    c"
+        "text j    c"
+        "d    j    c"
+        "d    j    logo";
+      background: var(--dark);
+    }
+    .sc-tile {
+      background-color: var(--dark);
+      background-size: cover;
+      background-position: center;
+      min-width: 0;
+      min-height: 0;
+    }
+    .sc-tile-a { grid-area: a; }
+    .sc-tile-b { grid-area: b; background: #000; }
+    .sc-tile-c { grid-area: c; }
+    .sc-tile-d { grid-area: d; }
+    .sc-tile-j { grid-area: j; }
+    .sc-tile-logo {
+      grid-area: logo;
+      background: var(--blue);
       display: flex;
       align-items: center;
-      background: var(--blue);
+      justify-content: center;
     }
-    #sc-hero h1 { margin-bottom: 1.5rem; font-size: clamp(2rem, 5vw, 6rem); }
+    .sc-tile-logo svg { width: 58%; max-width: 200px; height: auto; }
+    .sc-hero-text {
+      grid-area: text;
+      background: var(--blue);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 2rem clamp(1.5rem, 6vw, 6rem);
+    }
+    #sc-hero h1 {
+      font-size: clamp(1.4rem, 2.3vw, 2.4rem);
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.25rem;
+      max-width: 22em;
+    }
     .sc-hero-sub {
-      color: rgba(240,237,230,0.85);
-      margin-bottom: 2.5rem;
-      font-size: clamp(1rem, 1.8vw, 1.2rem);
+      color: var(--cream);
+      font-size: clamp(0.85rem, 1vw, 1rem);
+      font-weight: 500;
+      line-height: 1.45;
+      max-width: 42em;
+      margin-bottom: 1.75rem;
+    }
+    .sc-hero-btn {
+      background: #000;
+      color: var(--cream);
+      text-decoration: none;
+      font-weight: 700;
+      font-size: clamp(1rem, 1.4vw, 1.4rem);
+      padding: 0.35em 0.5em;
+      transition: opacity 0.2s;
+    }
+    .sc-hero-btn:hover { opacity: 0.85; }
+    .sc-hero-more {
+      margin-top: 0.5rem;
+      color: var(--cream);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-decoration: none;
+      opacity: 0.8;
+    }
+    .sc-hero-more:hover { opacity: 1; text-decoration: underline; }
+
+    @media (max-width: 767px) {
+      #sc-hero {
+        height: auto;
+        min-height: 0;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 30vh auto 40vw 40vw;
+        grid-template-areas:
+          "a    c"
+          "text text"
+          "d    j"
+          "d    j";
+      }
+      .sc-tile-b, .sc-tile-logo { display: none; }
+      .sc-hero-text { padding: 3rem 1.5rem; }
     }
 
     /* De qué se trata */
@@ -112,6 +194,15 @@
       border-radius: 50%;
     }
     .sc-split-left li { color: rgba(240,237,230,0.85); }
+    /* Ilustraciones; en la columna oscura se invierten para verse blancas */
+    .sc-split-illustration {
+      display: block;
+      width: min(256px, 56%);
+      height: auto;
+      margin-top: 2.5rem;
+    }
+    .sc-split-left .sc-split-illustration { filter: invert(1); }
+    .sc-split-right .sc-split-illustration { margin-left: auto; }
     .sc-split-right li { color: rgba(20,20,20,0.8); }
 
     @media (min-width: 768px) {
@@ -140,6 +231,26 @@
       overflow: hidden;
     }
     #sc-expect h2 { margin-bottom: 2rem; }
+    /* Composición de imágenes: tercio derecho de la sección */
+    .sc-expect-collage {
+      position: absolute;
+      /* bottom: 200px = lo que el footer tapa de la sección (ver height de #sc-expect) */
+      top: 0; right: 0; bottom: 200px;
+      width: 33.333%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      grid-template-areas:
+        "a c"
+        "b c";
+    }
+    .sc-expect-img { background-size: cover; background-position: center; }
+    .sc-expect-collage-a { grid-area: a; }
+    .sc-expect-collage-b { grid-area: b; }
+    .sc-expect-collage-c { grid-area: c; }
+    @media (max-width: 900px) {
+      .sc-expect-collage { display: none; }
+    }
     .sc-expect-list {
       list-style: none;
       display: flex;
@@ -197,12 +308,25 @@
 
   <!-- ── SECCIÓN 1: HERO / CTA ── -->
   <section id="sc-hero">
-    <div class="container">
+    <!-- Cada .sc-tile con data-rotate cambia de fondo cada 0.8s -->
+    <div class="sc-tile sc-tile-a" data-rotate></div>
+    <div class="sc-tile sc-tile-b"></div>
+    <div class="sc-tile sc-tile-c" data-rotate></div>
+    <div class="sc-hero-text">
       <h1>Buscamos a diez creadorxs de contenido que quieran hackear sus historias y hacer visible el sistema que las sostiene.</h1>
       <p class="sc-hero-sub">
         Toda historia habla de economía, aunque parezca que no. Cinco semanas para trabajar el cambio climático desde ahí y publicar dos contenidos propios. Registro abierto hasta el 9 de octubre.
       </p>
-      <a href="https://docs.google.com/forms/d/e/1FAIpQLSeRQG-hehKt5amF1egmlwtPzBhuNQjLhUB-WuW3pwbiCdlkPw/viewform?usp=publish-editor" target="_blank" rel="noopener noreferrer" class="btn-white">Me interesa</a>
+      <a href="https://docs.google.com/forms/d/e/1FAIpQLSeRQG-hehKt5amF1egmlwtPzBhuNQjLhUB-WuW3pwbiCdlkPw/viewform?usp=publish-editor" target="_blank" rel="noopener noreferrer" class="sc-hero-btn">Me interesa</a>
+      <a href="#sc-about" class="sc-hero-more">Ver el resto de la convocatoria ↓</a>
+    </div>
+    <div class="sc-tile sc-tile-j" data-rotate></div>
+    <div class="sc-tile sc-tile-d" data-rotate></div>
+    <div class="sc-tile sc-tile-logo">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="18 20 128 90" aria-hidden="true">
+        <path fill="#ffffff" d="M141.4,65.5c0-1.5-.8-2.8-2.1-3.4l-2.8-1.4c-.7-.4-.7-1.4,0-1.7l2.8-1.4c1.3-.7,2.1-2,2.1-3.4,0-1.5-.8-2.8-2.1-3.4l-51.7-26.1h0c-3.7-1.9-8.1-1.9-11.7,0l-51.7,26.1c-1.3.7-2.1,2-2.1,3.4,0,1.5.8,2.8,2.1,3.4l2.8,1.4c.7.4.7,1.4,0,1.7l-2.8,1.4c-1.3.7-2.1,2-2.1,3.4,0,1.5.8,2.8,2.1,3.4l2.8,1.4c.7.4.7,1.4,0,1.7l-2.8,1.4c-1.3.7-2.1,2-2.1,3.4,0,1.5.8,2.8,2.1,3.4l51.7,26.1c1.8.9,3.9,1.4,5.9,1.4s4-.5,5.9-1.4l51.7-26.1c1.3-.7,2.1-2,2.1-3.4,0-1.5-.8-2.8-2.1-3.4l-2.8-1.4c-.7-.4-.7-1.4,0-1.7l2.8-1.4c1.3-.7,2.1-2,2.1-3.4ZM28,54.9c-.7-.4-.7-1.4,0-1.7l49.7-25.1c2.6-1.3,5.5-1.3,8.1,0l49.7,25.1c.7.4.7,1.4,0,1.7l-4.7,2.4c-.3.1-.6.1-.9,0l-42.3-21.4h0c-3.7-1.9-8.1-1.9-11.7,0l-42.3,21.4c-.3.1-.6.1-.9,0l-4.7-2.4ZM85.1,80.4c-2.1,1.1-4.6,1.1-6.7,0l-27.8-14.1c-.7-.4-.7-1.4,0-1.7l27.8-14.1c2.1-1.1,4.6-1.1,6.7,0l27.8,14.1c.7.4.7,1.4,0,1.7l-27.8,14.1ZM119.5,67.9l4.7,2.4c.7.4.7,1.4,0,1.7l-38.4,19.4c-2.6,1.3-5.5,1.3-8.1,0l-38.4-19.4c-.7-.4-.7-1.4,0-1.7l4.7-2.4c.3-.1.6-.1.9,0l31,15.7c1.8.9,3.9,1.4,5.9,1.4s4-.5,5.9-1.4l31-15.7c.3-.1.6-.1.9,0ZM87.6,47.3h0c-3.7-1.9-8.1-1.9-11.7,0l-31,15.7c-.3.1-.6.1-.9,0l-4.7-2.4c-.7-.4-.7-1.4,0-1.7l38.4-19.4c2.6-1.3,5.5-1.3,8.1,0l38.4,19.4c.7.4.7,1.4,0,1.7l-4.7,2.4c-.3.1-.6.1-.9,0l-31-15.7ZM28,64.6l4.7-2.4c.3-.1.6-.1.9,0l4.7,2.4c.7.4.7,1.4,0,1.7l-4.7,2.4c-.3.1-.6.1-.9,0l-4.7-2.4c-.7-.4-.7-1.4,0-1.7ZM135.4,76c.7.4.7,1.4,0,1.7l-49.7,25.1c-2.6,1.3-5.5,1.3-8.1,0l-49.7-25.1c-.7-.4-.7-1.4,0-1.7l4.7-2.4c.3-.1.6-.1.9,0l42.3,21.4c1.8.9,3.9,1.4,5.9,1.4s4-.5,5.9-1.4l42.3-21.4c.3-.1.6-.1.9,0l4.7,2.4ZM129.9,68.7l-4.7-2.4c-.7-.4-.7-1.4,0-1.7l4.7-2.4c.3-.1.6-.1.9,0l4.7,2.4c.7.4.7,1.4,0,1.7l-4.7,2.4c-.3.1-.6.1-.9,0Z"/>
+        <path fill="#ffffff" d="M102.2,64.9l-18.3-9.2c-1.4-.7-3-.7-4.4,0l-18.3,9.2c-.5.2-.5.9,0,1.1l18.3,9.2c1.4.7,3,.7,4.4,0l18.3-9.2c.5-.2.5-.9,0-1.1ZM81.8,71.4c-1.9,0-3.2-1.8-2.7-3.6l2.6-9.4h.3l2.6,9.4c.5,1.8-.9,3.6-2.7,3.6Z"/>
+      </svg>
     </div>
   </section>
 
@@ -211,10 +335,12 @@
     <div class="container">
       <h2>De qué se trata</h2>
       <div class="sc-about-copy">
-        <p>El cambio climático no está pasando de forma natural. Es el síntoma de un sistema económico que pone la ganancia de unos cuantos por encima de la vida: la de ecosistemas enteros, la de miles de especies y la nuestra.</p>
-        <p>Y ese mismo sistema define muchas más cosas: dónde se instalan centros de datos, por qué seguimos quemando combustibles fósiles o a dónde va a parar la basura. De eso queremos hablar.</p>
-        <p>Aquí vas a aprender a ver el sistema que sostiene tu historia. Qué recurso está en disputa, ya sea dinero, tiempo, territorio o atención. Quién gana y quién pierde.</p>
-        <p>No hace falta que hagas contenido sobre esto para entrar. Hables de medio ambiente, de comida, de música o de lo que sea, tu contenido ya está hablando de esto. Participar es gratuito.</p>
+        <p>Arena es un programa para creadores que quieren <strong>contar mejores historias y construir una práctica creativa sostenible.</strong></p>
+        <p>Durante la cohorte vas a aprender a <strong>encontrar la historia detrás de la historia:</strong> qué sistema está operando, qué recursos están en disputa, quién gana, quién pierde y cómo convertir todo eso en una narrativa que la gente quiera ver, escuchar o compartir.</p>
+        <p>También vas a trabajar en <strong>cómo sostener tu proyecto:</strong> ponerle precio a tu trabajo, construir propuestas, diversificar ingresos y relacionarte con organizaciones y marcas.</p>
+        <p>No importa si hablas de comida, música, belleza, cultura o medio ambiente. La metodología sirve para profundizar cualquier tema y descubrir las relaciones económicas, sociales y ambientales que muchas veces quedan fuera de cuadro.</p>
+        <p>Storytelling, investigación y modelo de negocio para hacer contenido más ambicioso sin que producirlo sea insostenible.</p>
+        <p>Participar es gratuito.</p>
       </div>
     </div>
   </section>
@@ -289,22 +415,25 @@
         <p class="sc-split-sub">Creadorxs de contenido que vivan en cualquier lugar de México y tengan una audiencia propia consolidada.</p>
         <p style="margin-bottom:1rem; color:rgba(240,237,230,0.85);">Esta convocatoria es para ti si:</p>
         <ul>
-          <li>Ya hablas de cambio climático y quieres ir más allá del daño</li>
-          <li>Hablas de otro tema y te interesa entender el sistema económico que hay detrás</li>
-          <li>Tienes ganas de producir contenido riguroso</li>
+          <li>Quieres que tu contenido suba de nivel.</li>
+          <li>Todavía no hablas de clima, desigualdad o medio ambiente, pero quieres aprender a entrarle a esos temas sin perder tu voz.</li>
+          <li>Ya hablas de estos temas, pero quieres fortalecer tu storytelling, tu metodología y la sostenibilidad económica de tu proyecto.</li>
+          <li>Quieres que tu trabajo pueda crecer más allá de tus redes y abrir colaboraciones con organizaciones, medios o aliados.</li>
         </ul>
+        <img class="sc-split-illustration" src="../img/desarrolladora.png" alt="" aria-hidden="true">
       </div>
     </div>
     <div class="sc-split-half sc-split-right">
       <div class="sc-split-inner">
         <h2>Qué recibes</h2>
-        <ul style="margin-top:1.5rem;">
-          <li>Acompañamiento editorial</li>
-          <li>Pláticas y talleres con invitadxs</li>
-          <li>Equipo de producción de contenido, para quedártelo</li>
-          <li>Un encuentro presencial en CDMX</li>
-          <li>Conocer a otrxs creadorxs con las mismas inquietudes que tú</li>
+        <p class="sc-split-sub">No vienes solo a tomar talleres. Vienes a meterte a una comunidad.</p>
+        <ul>
+          <li>Vas a tener acompañamiento editorial para llevar tus ideas más lejos, talleres y conversaciones con gente que ya está haciendo cosas chingonas y acceso a herramientas de producción para que tus historias no se queden en borrador.</li>
+          <li>También te vamos a conectar con otrxs creadorxs, organizaciones, fondos y posibles aliados para que tu trabajo encuentre nuevas rutas de colaboración y financiamiento.</li>
+          <li>Y sí: habrá un encuentro presencial en CDMX para conocernos, trabajar juntxs, compartir procesos y empezar a construir una red que siga viva después de la cohorte.</li>
+          <li>Más ideas. Más herramientas. Más conexiones. Más posibilidades de sostener lo que haces.</li>
         </ul>
+        <img class="sc-split-illustration" src="../img/disenador.png" alt="" aria-hidden="true">
       </div>
     </div>
   </section>
@@ -320,6 +449,11 @@
       </ul>
       <p class="sc-fine-print">Si vives fuera, el vuelo y el hospedaje están cubiertos</p>
       <a href="https://docs.google.com/forms/d/e/1FAIpQLSeRQG-hehKt5amF1egmlwtPzBhuNQjLhUB-WuW3pwbiCdlkPw/viewform?usp=publish-editor" target="_blank" rel="noopener noreferrer" class="btn-white">Postularme</a>
+    </div>
+    <div class="sc-expect-collage" aria-hidden="true">
+      <div class="sc-expect-img sc-expect-collage-a" style="background-image:url('../img/sc-expect/collage.webp')"></div>
+      <div class="sc-expect-img sc-expect-collage-b" style="background-image:url('../img/sc-expect/celular.webp')"></div>
+      <div class="sc-expect-img sc-expect-collage-c" style="background-image:url('../img/sc-expect/ciudad.webp')"></div>
     </div>
   </section>
 
@@ -405,6 +539,45 @@ Su trabajo se centra en derechos humanos, política y cultura, con un enfoque qu
     }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+
+  <!-- ── HERO: FONDOS QUE ROTAN ── -->
+  <script>
+    (function () {
+      const INTERVAL = 1000; // ms entre cambios
+      const images = Array.from({ length: 18 }, (_, i) =>
+        '../img/sc-hero/' + String(i + 1).padStart(2, '0') + '.webp'
+      );
+      const tiles = Array.from(document.querySelectorAll('#sc-hero [data-rotate]'));
+      // Índice de la imagen que muestra cada cuadro; arrancan separados para que no coincidan
+      const current = tiles.map((_, t) => Math.round(t * images.length / tiles.length));
+
+      function show(t) {
+        tiles[t].style.backgroundImage = 'url("' + images[current[t]] + '")';
+      }
+      tiles.forEach((_, t) => show(t));
+
+      // Cambia UN cuadro al azar (puede repetirse) a una imagen que no esté visible en ningún otro
+      function swapOne() {
+        const t = Math.floor(Math.random() * tiles.length);
+        const free = images.map((_, i) => i).filter(i => !current.includes(i));
+        current[t] = free[Math.floor(Math.random() * free.length)];
+        show(t);
+      }
+
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+      // Precarga todo antes de arrancar para que no parpadee
+      Promise.all(images.map(src => new Promise(res => {
+        const img = new Image();
+        img.onload = img.onerror = res;
+        img.src = src;
+      }))).then(() => {
+        setInterval(() => {
+          if (!document.hidden) swapOne();
+        }, INTERVAL);
+      });
+    })();
   </script>
 
 </body>
