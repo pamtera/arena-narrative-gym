@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Segunda convocatoria · Gimnasio Creativo Social</title>
+  <meta name="description" content="Toda historia habla de economía, aunque parezca que no. Cinco semanas para trabajar el cambio climático desde ahí y publicar dos contenidos propios. Registro abierto hasta el 9 de octubre." />
+  <link rel="icon" href="../favicon-light.svg" media="(prefers-color-scheme: light)">
+  <link rel="icon" href="../favicon.svg" media="(prefers-color-scheme: dark)">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../style.css" />
+  <style>
+    /* ── SEGUNDA CONVOCATORIA — PAGE SPECIFIC ── */
+
+    .community-thumb-label {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 1.5rem 0.75rem 0.75rem;
+      background: linear-gradient(to top, rgba(20,20,20,0.85) 0%, transparent 100%);
+      display: flex;
+      flex-direction: column;
+      gap: 0.1rem;
+      transform: translateY(4px);
+      opacity: 0;
+      transition: opacity 0.25s, transform 0.25s;
+    }
+    .community-thumb:hover .community-thumb-label {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .community-thumb:hover img {
+      filter: grayscale(0%) !important;
+      transform: scale(1.04);
+    }
+    .community-thumb-name {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--cream);
+      letter-spacing: -0.01em;
+    }
+    .community-thumb-role {
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: rgba(240,237,230,0.55);
+    }
+
+    /* Hero */
+    #sc-hero {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      background: var(--blue);
+    }
+    #sc-hero h1 { margin-bottom: 1.5rem; font-size: clamp(2rem, 5vw, 6rem); }
+    .sc-hero-sub {
+      color: rgba(240,237,230,0.85);
+      margin-bottom: 2.5rem;
+      font-size: clamp(1rem, 1.8vw, 1.2rem);
+    }
+
+    /* De qué se trata */
+    #sc-about { background: var(--cream); color: var(--dark); }
+    #sc-about h2 { color: var(--dark); margin-bottom: 2rem; }
+    .sc-about-copy { max-width: 760px; }
+    .sc-about-copy p {
+      color: rgba(20,20,20,0.72);
+      margin-bottom: 1.5rem;
+    }
+    .sc-about-copy p:last-child { margin-bottom: 0; }
+
+    /* Pantalla dividida */
+    .sc-split { display: flex; flex-direction: column; padding: 0; }
+    .sc-split-half {
+      flex: 1 1 100%;
+      display: flex;
+      align-items: center;
+    }
+    .sc-split-inner { width: 100%; padding: 6rem 2rem; }
+    .sc-split-left { background: var(--dark); color: var(--cream); }
+    .sc-split-right { background: var(--cream); color: var(--dark); }
+    .sc-split-left h2 { color: var(--cream); }
+    .sc-split-right h2 { color: var(--dark); }
+    .sc-split-sub {
+      font-size: clamp(1rem, 1.6vw, 1.2rem);
+      font-weight: 500;
+      margin: 1rem 0 1.5rem;
+    }
+    .sc-split-left .sc-split-sub { color: rgba(240,237,230,0.85); }
+    .sc-split-right .sc-split-sub { color: rgba(20,20,20,0.78); }
+    .sc-split-inner ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .sc-split-inner li {
+      position: relative;
+      padding-left: 1.5rem;
+      font-size: 1.05rem;
+      line-height: 1.5;
+    }
+    .sc-split-inner li::before {
+      content: "";
+      position: absolute;
+      left: 0; top: 0.55em;
+      width: 8px; height: 8px;
+      background: var(--blue);
+      border-radius: 50%;
+    }
+    .sc-split-left li { color: rgba(240,237,230,0.85); }
+    .sc-split-right li { color: rgba(20,20,20,0.8); }
+
+    @media (min-width: 768px) {
+      .sc-split { flex-direction: row; }
+      .sc-split-half { flex: 1 1 50%; }
+      /* El borde exterior de cada columna respeta el mismo margen que .container;
+         el borde interior (junto a la línea divisoria) usa un gutter fijo. */
+      .sc-split-left .sc-split-inner {
+        padding-left: max(2rem, calc((100vw - 1200px) / 2 + 2rem));
+        padding-right: 3rem;
+      }
+      .sc-split-right .sc-split-inner {
+        padding-right: max(2rem, calc((100vw - 1200px) / 2 + 2rem));
+        padding-left: 3rem;
+      }
+    }
+
+    /* Lo que esperamos de ti */
+    #sc-expect {
+      background: var(--blue);
+      color: var(--cream);
+      position: sticky;
+      top: 78px;
+      z-index: 1;
+      height: calc(100vh - 78px + 200px);
+      overflow: hidden;
+    }
+    #sc-expect h2 { margin-bottom: 2rem; }
+    .sc-expect-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 1.1rem;
+      max-width: 640px;
+      margin-bottom: 2rem;
+    }
+    .sc-expect-list li {
+      position: relative;
+      padding-left: 1.75rem;
+      font-size: clamp(1rem, 1.5vw, 1.15rem);
+      line-height: 1.55;
+      color: rgba(240,237,230,0.9);
+    }
+    .sc-expect-list li::before {
+      content: "";
+      position: absolute;
+      left: 0; top: 0.6em;
+      width: 8px; height: 8px;
+      background: var(--cream);
+      border-radius: 50%;
+    }
+    .sc-fine-print {
+      font-size: 0.85rem;
+      color: rgba(240,237,230,0.65);
+      margin-bottom: 2.5rem;
+    }
+  </style>
+</head>
+<body>
+
+  <main id="main-content">
+
+  <!-- ── NAV ── -->
+  <nav>
+    <a class="nav-logo" href="../">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 523.9 129.9">
+        <defs><style>.nst0{fill:#F0EDE6}</style></defs>
+        <g>
+          <path class="nst0" d="M156.4,92.7l26-58.4c.7-1.6,2.3-2.6,4-2.6h19.6c2.1,0,4,1.5,4.3,3.6l9.6,58.4c.4,2.7-1.6,5.1-4.3,5.1h-10.8c-2.2,0-4-1.6-4.3-3.7l-.8-5.3c-.3-2.1-2.2-3.7-4.3-3.7h-13.5c-1.7,0-3.3,1-4,2.6l-3.3,7.5c-.7,1.6-2.3,2.6-4,2.6h-10.2c-3.2,0-5.3-3.2-4-6.1ZM191.4,69.6h1.3c2.6,0,4.7-2.3,4.3-4.9l-2.3-17.6h-.6l-6.8,16.4c-1.2,2.9.9,6,4,6Z"/>
+          <path class="nst0" d="M288.4,50v.5c-1.5,10.2-9,16.2-19.1,16.8v.6c8.8.8,12.8,5.5,13.3,15.3l.6,11.3h0c.2,2.3-1.7,4.3-4,4.3h-10.7c-2.3,0-4.2-1.8-4.3-4.2h0s-.4-12.4-.4-12.4h0c-.4-4.7-1.9-6-7.2-6h-4.8c-2.2,0-4,1.6-4.3,3.8l-2.1,15c-.3,2.2-2.1,3.8-4.3,3.8h-9.7c-2.6,0-4.7-2.3-4.3-5l8.3-58.4c.3-2.1,2.1-3.7,4.3-3.7h30.6c13.3,0,20,6.4,18.3,18.2ZM260,60.6c5.4,0,8.7-2.2,9.3-6.4v-.5c.7-4-1.8-6.2-6.9-6.2h-6.7c-2.2,0-4,1.6-4.3,3.7l-.6,4.4c-.4,2.6,1.7,5,4.3,5h4.9Z"/>
+          <path class="nst0" d="M290.6,93.9l8.3-58.4c.3-2.1,2.1-3.7,4.3-3.7h41c2.6,0,4.7,2.3,4.3,5l-1,7.3c-.3,2.2-2.1,3.8-4.3,3.8h-23.8c-2.2,0-4,1.6-4.3,3.7v.9c-.5,2.6,1.5,5,4.2,5h18.9c2.6,0,4.7,2.3,4.3,5l-.8,5.9c-.3,2.1-2.1,3.7-4.3,3.7h-21.3c-2.2,0-4,1.6-4.3,3.8l-.3,2c-.4,2.6,1.7,5,4.3,5h21.4c2.6,0,4.7,2.3,4.3,5l-1,7.3c-.3,2.2-2.1,3.8-4.3,3.8h-41c-2.6,0-4.7-2.3-4.3-5Z"/>
+          <path class="nst0" d="M348.6,93.9l8.3-58.4c.3-2.1,2.1-3.7,4.3-3.7h19.3c2,0,3.8,1.4,4.2,3.4l10.6,44.7h.7c.6-7.4,1.2-13.5,2-18.6l3.6-25.7c.3-2.2,2.1-3.8,4.3-3.8h8.5c2.6,0,4.7,2.3,4.3,5l-8.3,58.4c-.3,2.1-2.1,3.7-4.3,3.7h-19.4c-2,0-3.8-1.4-4.2-3.4l-10.6-44.7h-.7c-.7,7.2-1.2,13.7-2,19.6l-3.5,24.8c-.3,2.2-2.1,3.8-4.3,3.8h-8.5c-2.6,0-4.7-2.3-4.3-5Z"/>
+          <path class="nst0" d="M418.1,92.7l26-58.4c.7-1.6,2.3-2.6,4-2.6h19.6c2.1,0,4,1.5,4.3,3.6l9.6,58.4c.4,2.7-1.6,5.1-4.3,5.1h-10.8c-2.2,0-4-1.6-4.3-3.7l-.8-5.3c-.3-2.1-2.2-3.7-4.3-3.7h-13.5c-1.7,0-3.3,1-4,2.6l-3.3,7.5c-.7,1.6-2.3,2.6-4,2.6h-10.2c-3.2,0-5.3-3.2-4-6.1ZM453.1,69.6h1.3c2.6,0,4.7-2.3,4.3-4.9l-2.3-17.6h-.6l-6.8,16.4c-1.2,2.9.9,6,4,6Z"/>
+        </g>
+        <g>
+          <path class="nst0" d="M141.4,65.5c0-1.5-.8-2.8-2.1-3.4l-2.8-1.4c-.7-.4-.7-1.4,0-1.7l2.8-1.4c1.3-.7,2.1-2,2.1-3.4,0-1.5-.8-2.8-2.1-3.4l-51.7-26.1h0c-3.7-1.9-8.1-1.9-11.7,0l-51.7,26.1c-1.3.7-2.1,2-2.1,3.4,0,1.5.8,2.8,2.1,3.4l2.8,1.4c.7.4.7,1.4,0,1.7l-2.8,1.4c-1.3.7-2.1,2-2.1,3.4,0,1.5.8,2.8,2.1,3.4l2.8,1.4c.7.4.7,1.4,0,1.7l-2.8,1.4c-1.3.7-2.1,2-2.1,3.4,0,1.5.8,2.8,2.1,3.4l51.7,26.1c1.8.9,3.9,1.4,5.9,1.4s4-.5,5.9-1.4l51.7-26.1c1.3-.7,2.1-2,2.1-3.4,0-1.5-.8-2.8-2.1-3.4l-2.8-1.4c-.7-.4-.7-1.4,0-1.7l2.8-1.4c1.3-.7,2.1-2,2.1-3.4ZM28,54.9c-.7-.4-.7-1.4,0-1.7l49.7-25.1c2.6-1.3,5.5-1.3,8.1,0l49.7,25.1c.7.4.7,1.4,0,1.7l-4.7,2.4c-.3.1-.6.1-.9,0l-42.3-21.4h0c-3.7-1.9-8.1-1.9-11.7,0l-42.3,21.4c-.3.1-.6.1-.9,0l-4.7-2.4ZM85.1,80.4c-2.1,1.1-4.6,1.1-6.7,0l-27.8-14.1c-.7-.4-.7-1.4,0-1.7l27.8-14.1c2.1-1.1,4.6-1.1,6.7,0l27.8,14.1c.7.4.7,1.4,0,1.7l-27.8,14.1ZM119.5,67.9l4.7,2.4c.7.4.7,1.4,0,1.7l-38.4,19.4c-2.6,1.3-5.5,1.3-8.1,0l-38.4-19.4c-.7-.4-.7-1.4,0-1.7l4.7-2.4c.3-.1.6-.1.9,0l31,15.7c1.8.9,3.9,1.4,5.9,1.4s4-.5,5.9-1.4l31-15.7c.3-.1.6-.1.9,0ZM87.6,47.3h0c-3.7-1.9-8.1-1.9-11.7,0l-31,15.7c-.3.1-.6.1-.9,0l-4.7-2.4c-.7-.4-.7-1.4,0-1.7l38.4-19.4c2.6-1.3,5.5-1.3,8.1,0l38.4,19.4c.7.4.7,1.4,0,1.7l-4.7,2.4c-.3.1-.6.1-.9,0l-31-15.7ZM28,64.6l4.7-2.4c.3-.1.6-.1.9,0l4.7,2.4c.7.4.7,1.4,0,1.7l-4.7,2.4c-.3.1-.6.1-.9,0l-4.7-2.4c-.7-.4-.7-1.4,0-1.7ZM135.4,76c.7.4.7,1.4,0,1.7l-49.7,25.1c-2.6,1.3-5.5,1.3-8.1,0l-49.7-25.1c-.7-.4-.7-1.4,0-1.7l4.7-2.4c.3-.1.6-.1.9,0l42.3,21.4c1.8.9,3.9,1.4,5.9,1.4s4-.5,5.9-1.4l42.3-21.4c.3-.1.6-.1.9,0l4.7,2.4ZM129.9,68.7l-4.7-2.4c-.7-.4-.7-1.4,0-1.7l4.7-2.4c.3-.1.6-.1.9,0l4.7,2.4c.7.4.7,1.4,0,1.7l-4.7,2.4c-.3.1-.6.1-.9,0Z"/>
+          <path class="nst0" d="M102.2,64.9l-18.3-9.2c-1.4-.7-3-.7-4.4,0l-18.3,9.2c-.5.2-.5.9,0,1.1l18.3,9.2c1.4.7,3,.7,4.4,0l18.3-9.2c.5-.2.5-.9,0-1.1ZM81.8,71.4c-1.9,0-3.2-1.8-2.7-3.6l2.6-9.4h.3l2.6,9.4c.5,1.8-.9,3.6-2.7,3.6Z"/>
+        </g>
+      </svg>
+    </a>
+    <a href="../" class="nav-cta" style="background:transparent; border:1px solid rgba(240,237,230,0.2); color:rgba(240,237,230,0.7);">← El programa</a>
+  </nav>
+
+  <!-- ── SECCIÓN 1: HERO / CTA ── -->
+  <section id="sc-hero">
+    <div class="container">
+      <h1>Buscamos a diez creadorxs de contenido que quieran hackear sus historias y hacer visible el sistema que las sostiene.</h1>
+      <p class="sc-hero-sub">
+        Toda historia habla de economía, aunque parezca que no. Cinco semanas para trabajar el cambio climático desde ahí y publicar dos contenidos propios. Registro abierto hasta el 9 de octubre.
+      </p>
+      <a href="https://docs.google.com/forms/d/e/1FAIpQLSeRQG-hehKt5amF1egmlwtPzBhuNQjLhUB-WuW3pwbiCdlkPw/viewform?usp=publish-editor" target="_blank" rel="noopener noreferrer" class="btn-white">Me interesa</a>
+    </div>
+  </section>
+
+  <!-- ── SECCIÓN 2: DE QUÉ SE TRATA ── -->
+  <section id="sc-about">
+    <div class="container">
+      <h2>De qué se trata</h2>
+      <div class="sc-about-copy">
+        <p>El cambio climático no está pasando de forma natural. Es el síntoma de un sistema económico que pone la ganancia de unos cuantos por encima de la vida: la de ecosistemas enteros, la de miles de especies y la nuestra.</p>
+        <p>Y ese mismo sistema define muchas más cosas: dónde se instalan centros de datos, por qué seguimos quemando combustibles fósiles o a dónde va a parar la basura. De eso queremos hablar.</p>
+        <p>Aquí vas a aprender a ver el sistema que sostiene tu historia. Qué recurso está en disputa, ya sea dinero, tiempo, territorio o atención. Quién gana y quién pierde.</p>
+        <p>No hace falta que hagas contenido sobre esto para entrar. Hables de medio ambiente, de comida, de música o de lo que sea, tu contenido ya está hablando de esto. Participar es gratuito.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SECCIÓN 3: LA COMUNIDAD (reutilizada del home) ── -->
+  <section id="comunidad" style="background:var(--blue); padding:5rem 0 6rem; border-top:1px solid rgba(240,237,230,0.15);">
+    <div class="container">
+      <p style="font-size:0.72rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--cream); margin-bottom:1rem;" class="reveal">La comunidad</p>
+      <div style="display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:1.5rem; margin-bottom:3rem;">
+        <h2 class="reveal" style="margin-bottom:0;">Conoce al<br/>Primer Cohorte</h2>
+        <a href="../cohorte-1/" class="btn-ghost reveal">Ver todos →</a>
+      </div>
+
+      <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(160px, 1fr)); gap:2px;">
+
+        <a href="../cohorte-1/" style="text-decoration:none; display:block; position:relative; overflow:hidden; aspect-ratio:1/1; background:rgba(240,237,230,0.12);" class="reveal community-thumb">
+          <img src="../img/cohorte-1/maynee.jpg" alt="Mayneé Cortez" style="width:100%;height:100%;object-fit:cover;object-position:center top;filter:grayscale(30%);transition:filter 0.3s,transform 0.4s;">
+          <div class="community-thumb-label">
+            <span class="community-thumb-name">Mayneé Cortez</span>
+            <span class="community-thumb-role">Psicóloga</span>
+          </div>
+        </a>
+
+        <a href="../cohorte-1/" style="text-decoration:none; display:block; position:relative; overflow:hidden; aspect-ratio:1/1; background:rgba(240,237,230,0.12);" class="reveal community-thumb">
+          <img src="../img/cohorte-1/rodrigo-balvanera.jpg" alt="Rodrigo Balvanera" style="width:100%;height:100%;object-fit:cover;object-position:center top;filter:grayscale(30%);transition:filter 0.3s,transform 0.4s;">
+          <div class="community-thumb-label">
+            <span class="community-thumb-name">Rodrigo Balvanera</span>
+            <span class="community-thumb-role">Analista político</span>
+          </div>
+        </a>
+
+        <a href="../cohorte-1/" style="text-decoration:none; display:block; position:relative; overflow:hidden; aspect-ratio:1/1; background:rgba(240,237,230,0.12);" class="reveal community-thumb">
+          <img src="../img/cohorte-1/valeria-angola.jpg" alt="Valeria Angola" style="width:100%;height:100%;object-fit:cover;object-position:center top;filter:grayscale(30%);transition:filter 0.3s,transform 0.4s;">
+          <div class="community-thumb-label">
+            <span class="community-thumb-name">Valeria Angola</span>
+            <span class="community-thumb-role">Activista</span>
+          </div>
+        </a>
+
+        <a href="../cohorte-1/" style="text-decoration:none; display:block; position:relative; overflow:hidden; aspect-ratio:1/1; background:rgba(240,237,230,0.12);" class="reveal community-thumb">
+          <img src="../img/cohorte-1/adrian-chavez.jpg" alt="Adrián Chávez" style="width:100%;height:100%;object-fit:cover;object-position:center top;filter:grayscale(30%);transition:filter 0.3s,transform 0.4s;">
+          <div class="community-thumb-label">
+            <span class="community-thumb-name">Adrián Chávez</span>
+            <span class="community-thumb-role">Escritor</span>
+          </div>
+        </a>
+
+        <a href="../cohorte-1/" style="text-decoration:none; display:block; position:relative; overflow:hidden; aspect-ratio:1/1; background:rgba(240,237,230,0.12);" class="reveal community-thumb">
+          <img src="../img/cohorte-1/sofia-probert.jpg" alt="Sofía Probert" style="width:100%;height:100%;object-fit:cover;object-position:center top;filter:grayscale(30%);transition:filter 0.3s,transform 0.4s;">
+          <div class="community-thumb-label">
+            <span class="community-thumb-name">Sofía Probert</span>
+            <span class="community-thumb-role">Bióloga · Artista</span>
+          </div>
+        </a>
+
+        <a href="../cohorte-1/" style="text-decoration:none; display:block; position:relative; overflow:hidden; aspect-ratio:1/1; background:rgba(240,237,230,0.12);" class="reveal community-thumb" aria-label="Ver todos los participantes">
+          <div style="width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(240,237,230,0.18);gap:0.5rem;">
+            <span style="font-size:1.8rem;font-weight:700;color:var(--cream);">+6</span>
+            <span style="font-size:0.7rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:rgba(240,237,230,0.5);">Ver todos</span>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SECCIÓN 4: PANTALLA DIVIDIDA ── -->
+  <section class="sc-split">
+    <div class="sc-split-half sc-split-left">
+      <div class="sc-split-inner">
+        <h2>A quién buscamos</h2>
+        <p class="sc-split-sub">Creadorxs de contenido que vivan en cualquier lugar de México y tengan una audiencia propia consolidada.</p>
+        <p style="margin-bottom:1rem; color:rgba(240,237,230,0.85);">Esta convocatoria es para ti si:</p>
+        <ul>
+          <li>Ya hablas de cambio climático y quieres ir más allá del daño</li>
+          <li>Hablas de otro tema y te interesa entender el sistema económico que hay detrás</li>
+          <li>Tienes ganas de producir contenido riguroso</li>
+        </ul>
+      </div>
+    </div>
+    <div class="sc-split-half sc-split-right">
+      <div class="sc-split-inner">
+        <h2>Qué recibes</h2>
+        <ul style="margin-top:1.5rem;">
+          <li>Acompañamiento editorial</li>
+          <li>Pláticas y talleres con invitadxs</li>
+          <li>Equipo de producción de contenido, para quedártelo</li>
+          <li>Un encuentro presencial en CDMX</li>
+          <li>Conocer a otrxs creadorxs con las mismas inquietudes que tú</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SECCIÓN 5: LO QUE ESPERAMOS DE TI ── -->
+  <section id="sc-expect">
+    <div class="container">
+      <h2>Lo que esperamos de ti</h2>
+      <ul class="sc-expect-list">
+        <li>Desarrollar y publicar dos contenidos en tus redes durante el programa</li>
+        <li>Asistir a las cuatro sesiones en línea, jueves de 4 a 6</li>
+        <li>Asistir al encuentro en la Ciudad de México, del 5 al 8 de noviembre</li>
+      </ul>
+      <p class="sc-fine-print">Si vives fuera, el vuelo y el hospedaje están cubiertos</p>
+      <a href="https://docs.google.com/forms/d/e/1FAIpQLSeRQG-hehKt5amF1egmlwtPzBhuNQjLhUB-WuW3pwbiCdlkPw/viewform?usp=publish-editor" target="_blank" rel="noopener noreferrer" class="btn-white">Postularme</a>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer>
+    <div style="display:flex; align-items: center; justify-content: center; padding: 2rem;">
+      <img style="width: 100%; max-width: 500px;" src="../img/Arena+logo-2.png" alt="">
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 1rem;">
+
+      <div class="footer-bottom-row">
+        <div style="display:flex; flex-direction:column; gap:0.6rem;">
+          <span class="footer-fund">Coordinado por: <br/>
+            <span class="footer-bio-text"><strong>Florencia Guerra</strong> es periodista, productora y presentadora, actualmente trabaja como consultora en el Global Fund for a New Economy, donde lidera estrategias narrativas globales para transformar el discurso económico desde una perspectiva social, feminista y del sur global.</span>
+          </span>
+          <button class="footer-ver-mas" onclick="document.getElementById('modal-florencia').classList.add('open')">Ver más</button>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:0.6rem;">
+          <span class="footer-fund">Financiado por: <br/>
+            <a href="https://globalneweconomy.org" target="_blank" rel="noopener" class="footer-fund-link"><img src="../img/GFNE-Logo1-White.png" alt="Global Fund for a New Economy" style="height:56px; width:auto; opacity:0.5;"></a>.</span>
+        </div>
+      </div>
+
+      <div class="divider" style="width:100%; height:1px; background:rgba(240,237,230,0.1);"></div>
+
+      <div style="width:100%; flex:1 1 auto; display:flex; flex-wrap:wrap; gap:1rem;">
+        <div class="footer-top-row">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 159.5 129.9" style="height:36px; width:auto; opacity:0.5;">
+          <defs><style>.ist0{fill:#ffffff}</style></defs>
+          <path class="ist0" d="M141.4,65.5c0-1.5-.8-2.8-2.1-3.4l-2.8-1.4c-.7-.4-.7-1.4,0-1.7l2.8-1.4c1.3-.7,2.1-2,2.1-3.4,0-1.5-.8-2.8-2.1-3.4l-51.7-26.1h0c-3.7-1.9-8.1-1.9-11.7,0l-51.7,26.1c-1.3.7-2.1,2-2.1,3.4,0,1.5.8,2.8,2.1,3.4l2.8,1.4c.7.4.7,1.4,0,1.7l-2.8,1.4c-1.3.7-2.1,2-2.1,3.4,0,1.5.8,2.8,2.1,3.4l2.8,1.4c.7.4.7,1.4,0,1.7l-2.8,1.4c-1.3.7-2.1,2-2.1,3.4,0,1.5.8,2.8,2.1,3.4l51.7,26.1c1.8.9,3.9,1.4,5.9,1.4s4-.5,5.9-1.4l51.7-26.1c1.3-.7,2.1-2,2.1-3.4,0-1.5-.8-2.8-2.1-3.4l-2.8-1.4c-.7-.4-.7-1.4,0-1.7l2.8-1.4c1.3-.7,2.1-2,2.1-3.4ZM28,54.9c-.7-.4-.7-1.4,0-1.7l49.7-25.1c2.6-1.3,5.5-1.3,8.1,0l49.7,25.1c.7.4.7,1.4,0,1.7l-4.7,2.4c-.3.1-.6.1-.9,0l-42.3-21.4h0c-3.7-1.9-8.1-1.9-11.7,0l-42.3,21.4c-.3.1-.6.1-.9,0l-4.7-2.4ZM85.1,80.4c-2.1,1.1-4.6,1.1-6.7,0l-27.8-14.1c-.7-.4-.7-1.4,0-1.7l27.8-14.1c2.1-1.1,4.6-1.1,6.7,0l27.8,14.1c.7.4.7,1.4,0,1.7l-27.8,14.1ZM119.5,67.9l4.7,2.4c.7.4.7,1.4,0,1.7l-38.4,19.4c-2.6,1.3-5.5,1.3-8.1,0l-38.4-19.4c-.7-.4-.7-1.4,0-1.7l4.7-2.4c.3-.1.6-.1.9,0l31,15.7c1.8.9,3.9,1.4,5.9,1.4s4-.5,5.9-1.4l31-15.7c.3-.1.6-.1.9,0ZM87.6,47.3h0c-3.7-1.9-8.1-1.9-11.7,0l-31,15.7c-.3.1-.6.1-.9,0l-4.7-2.4c-.7-.4-.7-1.4,0-1.7l38.4-19.4c2.6-1.3,5.5-1.3,8.1,0l38.4,19.4c.7.4.7,1.4,0,1.7l-4.7,2.4c-.3.1-.6.1-.9,0l-31-15.7ZM28,64.6l4.7-2.4c.3-.1.6-.1.9,0l4.7,2.4c.7.4.7,1.4,0,1.7l-4.7,2.4c-.3.1-.6.1-.9,0l-4.7-2.4c-.7-.4-.7-1.4,0-1.7ZM135.4,76c.7.4.7,1.4,0,1.7l-49.7,25.1c-2.6,1.3-5.5,1.3-8.1,0l-49.7-25.1c-.7-.4-.7-1.4,0-1.7l4.7-2.4c.3-.1.6-.1.9,0l42.3,21.4c1.8.9,3.9,1.4,5.9,1.4s4-.5,5.9-1.4l42.3-21.4c.3-.1.6-.1.9,0l4.7,2.4ZM129.9,68.7l-4.7-2.4c-.7-.4-.7-1.4,0-1.7l4.7-2.4c.3-.1.6-.1.9,0l4.7,2.4c.7.4.7,1.4,0,1.7l-4.7,2.4c-.3.1-.6.1-.9,0Z"/>
+          <path class="ist0" d="M102.2,64.9l-18.3-9.2c-1.4-.7-3-.7-4.4,0l-18.3,9.2c-.5.2-.5.9,0,1.1l18.3,9.2c1.4.7,3,.7,4.4,0l18.3-9.2c.5-.2.5-.9,0-1.1ZM81.8,71.4c-1.9,0-3.2-1.8-2.7-3.6l2.6-9.4h.3l2.6,9.4c.5,1.8-.9,3.6-2.7,3.6Z"/>
+        </svg>
+        <span class="footer-copy">© 2026 Arena — Gym Narrativo · Parte del Gimnasio Creativo Social</span>
+      </div>
+
+
+    </div>
+  </footer>
+
+  </main>
+
+  <!-- ── MODAL FLORENCIA ── -->
+  <div id="modal-florencia" class="modal-overlay" onclick="if(event.target===this)this.classList.remove('open')">
+    <div class="modal-card">
+      <div class="modal-header">
+        <button class="modal-close" onclick="document.getElementById('modal-florencia').classList.remove('open')" aria-label="Cerrar">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-photo-wrap">
+          <img src="../img/florencia.jpg" alt="Florencia Guerra">
+        </div>
+        <div class="modal-text">
+          <p class="modal-label">Coordinado por</p>
+          <h3 class="modal-name">Florencia Guerra</h3>
+          <p class="modal-bio">
+            <strong>Florencia Guerra</strong> es periodista, productora y presentadora, actualmente trabaja como consultora en el Global Fund for a New Economy, donde lidera estrategias narrativas globales para transformar el discurso económico desde una perspectiva social, feminista y del sur global.
+            <br/>
+            <br/>
+Su trayectoria articula el periodismo con la comunicación de causas, uniendo storytelling poderoso con impacto político y cultural.
+            <br/>
+            <br/>
+Es reconocida por su trabajo en reportajes de investigación en video y podcast documental, con una voz distintiva en el periodismo narrativo. Ha sido parte de equipos clave y ha liderado proyectos de alto impacto en el panorama mediático de América Latina con plataformas como Brut México, Perra Nación (Spotify), Continuar Viendo (Netflix) y Canal Once. Desde 2025 emprendió su propio proyecto Buena Pregunta, donde produce reportajes documentales en video y podcast.
+            <br/>
+            <br/>
+Fue reconocida como Líder Emergente de Medios de Comunicación por el Centro Internacional para Periodistas (ICFJ) y ha obtenido el premio WAN-IFRA a Mejor Podcast, así como el Premio Alemán de Periodismo en dos ocasiones: por el documental El Tren Maya y la Impunidad Ambiental y por el podcast Tesla en México: ¿Es el nearshoring el nuevo milagro mexicano?, así como por el podcast Perra Nación.
+            <br/>
+            <br/>
+Su trabajo se centra en derechos humanos, política y cultura, con un enfoque que combina profundidad investigativa, sensibilidad social y una mirada crítica e innovadora de los formatos tradicionales.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SCROLL REVEAL JS ── -->
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
