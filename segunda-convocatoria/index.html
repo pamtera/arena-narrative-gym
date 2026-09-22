@@ -544,7 +544,9 @@ Su trabajo se centra en derechos humanos, política y cultura, con un enfoque qu
   <!-- ── HERO: FONDOS QUE ROTAN ── -->
   <script>
     (function () {
-      const INTERVAL = 1000; // ms entre cambios
+      // Con "Reducir movimiento" activado en el teléfono/computadora, cambia más lento en vez de detenerse
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const INTERVAL = reduce ? 3000 : 1000; // ms entre cambios
       const images = Array.from({ length: 18 }, (_, i) =>
         '../img/sc-hero/' + String(i + 1).padStart(2, '0') + '.webp'
       );
@@ -557,26 +559,26 @@ Su trabajo se centra en derechos humanos, política y cultura, con un enfoque qu
       }
       tiles.forEach((_, t) => show(t));
 
+      // Precarga en segundo plano; solo se rota entre imágenes ya descargadas para que no parpadee
+      const loaded = new Set(current);
+      images.forEach((src, i) => {
+        const img = new Image();
+        img.onload = () => loaded.add(i);
+        img.src = src;
+      });
+
       // Cambia UN cuadro al azar (puede repetirse) a una imagen que no esté visible en ningún otro
       function swapOne() {
+        const free = [...loaded].filter(i => !current.includes(i));
+        if (!free.length) return; // todavía cargando
         const t = Math.floor(Math.random() * tiles.length);
-        const free = images.map((_, i) => i).filter(i => !current.includes(i));
         current[t] = free[Math.floor(Math.random() * free.length)];
         show(t);
       }
 
-      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-      // Precarga todo antes de arrancar para que no parpadee
-      Promise.all(images.map(src => new Promise(res => {
-        const img = new Image();
-        img.onload = img.onerror = res;
-        img.src = src;
-      }))).then(() => {
-        setInterval(() => {
-          if (!document.hidden) swapOne();
-        }, INTERVAL);
-      });
+      setInterval(() => {
+        if (!document.hidden) swapOne();
+      }, INTERVAL);
     })();
   </script>
 
