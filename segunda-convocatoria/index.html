@@ -132,13 +132,14 @@
       #sc-hero {
         height: auto;
         min-height: 0;
+        padding-top: 72px; /* alto del menú fijo, para que no tape la primera imagen */
         grid-template-columns: 1fr 1fr;
-        grid-template-rows: 30vh auto 40vw 40vw;
+        grid-template-rows: 28vw auto 55vw 100vw;
         grid-template-areas:
-          "a    c"
+          "a    a"
           "text text"
-          "d    j"
-          "d    j";
+          "d    d"
+          "j    c";
       }
       .sc-tile-b, .sc-tile-logo { display: none; }
       .sc-hero-text { padding: 3rem 1.5rem; }
@@ -153,6 +154,12 @@
       margin-bottom: 1.5rem;
     }
     .sc-about-copy p:last-child { margin-bottom: 0; }
+    .sc-about-row { display: flex; align-items: center; gap: 4rem; }
+    .sc-about-copy { flex: 1 1 auto; }
+    .sc-about-logo { flex: 0 1 38%; min-width: 0; height: auto; }
+    @media (max-width: 767px) {
+      .sc-about-logo { display: none; }
+    }
 
     /* Pantalla dividida */
     .sc-split { display: flex; flex-direction: column; padding: 0; }
@@ -231,6 +238,7 @@
       overflow: hidden;
     }
     #sc-expect h2 { margin-bottom: 2rem; }
+    .btn-white.sc-btn-black { background: #000; color: var(--cream); }
     /* Composición de imágenes: tercio derecho de la sección */
     .sc-expect-collage {
       position: absolute;
@@ -308,20 +316,19 @@
 
   <!-- ── SECCIÓN 1: HERO / CTA ── -->
   <section id="sc-hero">
-    <!-- Cada .sc-tile con data-rotate cambia de fondo cada 0.8s -->
-    <div class="sc-tile sc-tile-a" data-rotate></div>
+    <!-- Cada .sc-tile con data-rotate va cambiando de fondo; el valor indica de qué grupo de imágenes toma (ver JS) -->
+    <div class="sc-tile sc-tile-a" data-rotate="sup"></div>
     <div class="sc-tile sc-tile-b"></div>
-    <div class="sc-tile sc-tile-c" data-rotate></div>
+    <div class="sc-tile sc-tile-c" data-rotate="ver"></div>
     <div class="sc-hero-text">
-      <h1>Buscamos a diez creadorxs de contenido que quieran hackear sus historias y hacer visible el sistema que las sostiene.</h1>
+      <h1>Buscamos a diez creadores de contenido que quieran llevar su narrativa al siguiente nivel y contar mejor las historias que explican la desigualdad y la crisis ambiental.</h1>
       <p class="sc-hero-sub">
-        Toda historia habla de economía, aunque parezca que no. Cinco semanas para trabajar el cambio climático desde ahí y publicar dos contenidos propios. Registro abierto hasta el 9 de octubre.
+        Toda historia habla de economía, aunque parezca que no. Cinco semanas para trabajar el cambio climático, la desigualdad y la economía.
       </p>
-      <a href="https://docs.google.com/forms/d/e/1FAIpQLSeRQG-hehKt5amF1egmlwtPzBhuNQjLhUB-WuW3pwbiCdlkPw/viewform?usp=publish-editor" target="_blank" rel="noopener noreferrer" class="sc-hero-btn">Me interesa</a>
-      <a href="#sc-about" class="sc-hero-more">Ver el resto de la convocatoria ↓</a>
+      <a href="#sc-about" target="_blank" rel="noopener noreferrer" class="sc-hero-btn">Ver resto de la convocatoria</a>
     </div>
-    <div class="sc-tile sc-tile-j" data-rotate></div>
-    <div class="sc-tile sc-tile-d" data-rotate></div>
+    <div class="sc-tile sc-tile-j" data-rotate="ver"></div>
+    <div class="sc-tile sc-tile-d" data-rotate="inf"></div>
     <div class="sc-tile sc-tile-logo">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="18 20 128 90" aria-hidden="true">
         <path fill="#ffffff" d="M141.4,65.5c0-1.5-.8-2.8-2.1-3.4l-2.8-1.4c-.7-.4-.7-1.4,0-1.7l2.8-1.4c1.3-.7,2.1-2,2.1-3.4,0-1.5-.8-2.8-2.1-3.4l-51.7-26.1h0c-3.7-1.9-8.1-1.9-11.7,0l-51.7,26.1c-1.3.7-2.1,2-2.1,3.4,0,1.5.8,2.8,2.1,3.4l2.8,1.4c.7.4.7,1.4,0,1.7l-2.8,1.4c-1.3.7-2.1,2-2.1,3.4,0,1.5.8,2.8,2.1,3.4l2.8,1.4c.7.4.7,1.4,0,1.7l-2.8,1.4c-1.3.7-2.1,2-2.1,3.4,0,1.5.8,2.8,2.1,3.4l51.7,26.1c1.8.9,3.9,1.4,5.9,1.4s4-.5,5.9-1.4l51.7-26.1c1.3-.7,2.1-2,2.1-3.4,0-1.5-.8-2.8-2.1-3.4l-2.8-1.4c-.7-.4-.7-1.4,0-1.7l2.8-1.4c1.3-.7,2.1-2,2.1-3.4ZM28,54.9c-.7-.4-.7-1.4,0-1.7l49.7-25.1c2.6-1.3,5.5-1.3,8.1,0l49.7,25.1c.7.4.7,1.4,0,1.7l-4.7,2.4c-.3.1-.6.1-.9,0l-42.3-21.4h0c-3.7-1.9-8.1-1.9-11.7,0l-42.3,21.4c-.3.1-.6.1-.9,0l-4.7-2.4ZM85.1,80.4c-2.1,1.1-4.6,1.1-6.7,0l-27.8-14.1c-.7-.4-.7-1.4,0-1.7l27.8-14.1c2.1-1.1,4.6-1.1,6.7,0l27.8,14.1c.7.4.7,1.4,0,1.7l-27.8,14.1ZM119.5,67.9l4.7,2.4c.7.4.7,1.4,0,1.7l-38.4,19.4c-2.6,1.3-5.5,1.3-8.1,0l-38.4-19.4c-.7-.4-.7-1.4,0-1.7l4.7-2.4c.3-.1.6-.1.9,0l31,15.7c1.8.9,3.9,1.4,5.9,1.4s4-.5,5.9-1.4l31-15.7c.3-.1.6-.1.9,0ZM87.6,47.3h0c-3.7-1.9-8.1-1.9-11.7,0l-31,15.7c-.3.1-.6.1-.9,0l-4.7-2.4c-.7-.4-.7-1.4,0-1.7l38.4-19.4c2.6-1.3,5.5-1.3,8.1,0l38.4,19.4c.7.4.7,1.4,0,1.7l-4.7,2.4c-.3.1-.6.1-.9,0l-31-15.7ZM28,64.6l4.7-2.4c.3-.1.6-.1.9,0l4.7,2.4c.7.4.7,1.4,0,1.7l-4.7,2.4c-.3.1-.6.1-.9,0l-4.7-2.4c-.7-.4-.7-1.4,0-1.7ZM135.4,76c.7.4.7,1.4,0,1.7l-49.7,25.1c-2.6,1.3-5.5,1.3-8.1,0l-49.7-25.1c-.7-.4-.7-1.4,0-1.7l4.7-2.4c.3-.1.6-.1.9,0l42.3,21.4c1.8.9,3.9,1.4,5.9,1.4s4-.5,5.9-1.4l42.3-21.4c.3-.1.6-.1.9,0l4.7,2.4ZM129.9,68.7l-4.7-2.4c-.7-.4-.7-1.4,0-1.7l4.7-2.4c.3-.1.6-.1.9,0l4.7,2.4c.7.4.7,1.4,0,1.7l-4.7,2.4c-.3.1-.6.1-.9,0Z"/>
@@ -333,14 +340,17 @@
   <!-- ── SECCIÓN 2: DE QUÉ SE TRATA ── -->
   <section id="sc-about">
     <div class="container">
-      <h2>De qué se trata</h2>
-      <div class="sc-about-copy">
-        <p>Arena es un programa para creadores que quieren <strong>contar mejores historias y construir una práctica creativa sostenible.</strong></p>
-        <p>Durante la cohorte vas a aprender a <strong>encontrar la historia detrás de la historia:</strong> qué sistema está operando, qué recursos están en disputa, quién gana, quién pierde y cómo convertir todo eso en una narrativa que la gente quiera ver, escuchar o compartir.</p>
-        <p>También vas a trabajar en <strong>cómo sostener tu proyecto:</strong> ponerle precio a tu trabajo, construir propuestas, diversificar ingresos y relacionarte con organizaciones y marcas.</p>
-        <p>No importa si hablas de comida, música, belleza, cultura o medio ambiente. La metodología sirve para profundizar cualquier tema y descubrir las relaciones económicas, sociales y ambientales que muchas veces quedan fuera de cuadro.</p>
-        <p>Storytelling, investigación y modelo de negocio para hacer contenido más ambicioso sin que producirlo sea insostenible.</p>
-        <p>Participar es gratuito.</p>
+      <div class="sc-about-row">
+        <div class="sc-about-copy">
+          <h2>De qué se trata</h2>
+          <p>Arena es un programa para creadores que quieren <strong>contar mejores historias y construir una práctica creativa sostenible.</strong></p>
+          <p>Durante la cohorte vas a aprender a <strong>encontrar la historia detrás de la historia:</strong> qué sistema está operando, qué recursos están en disputa, quién gana, quién pierde y cómo convertir todo eso en una narrativa que la gente quiera ver, escuchar o compartir.</p>
+          <p>También vas a trabajar en <strong>cómo sostener tu proyecto:</strong> ponerle precio a tu trabajo, construir propuestas, diversificar ingresos y relacionarte con organizaciones y marcas.</p>
+          <p>No importa si hablas de comida, música, belleza, cultura o medio ambiente. La metodología sirve para profundizar cualquier tema y descubrir las relaciones económicas, sociales y ambientales que muchas veces quedan fuera de cuadro.</p>
+          <p>Storytelling, investigación y modelo de negocio para hacer contenido más ambicioso sin que producirlo sea insostenible.</p>
+          <p>Participar es gratuito.</p>
+        </div>
+        <img class="sc-about-logo" src="../img/arena-layers.webp" alt="Arena">
       </div>
     </div>
   </section>
@@ -350,7 +360,7 @@
     <div class="container">
       <p style="font-size:0.72rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--cream); margin-bottom:1rem;" class="reveal">La comunidad</p>
       <div style="display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:1.5rem; margin-bottom:3rem;">
-        <h2 class="reveal" style="margin-bottom:0;">Conoce al<br/>Primer Cohorte</h2>
+        <h2 class="reveal" style="margin-bottom:0;">Conoce a la <br/>Primera Cohorte</h2>
         <a href="../cohorte-1/" class="btn-ghost reveal">Ver todos →</a>
       </div>
 
@@ -448,12 +458,12 @@
         <li>Asistir al encuentro en la Ciudad de México, del 5 al 8 de noviembre</li>
       </ul>
       <p class="sc-fine-print">Si vives fuera, el vuelo y el hospedaje están cubiertos</p>
-      <a href="https://docs.google.com/forms/d/e/1FAIpQLSeRQG-hehKt5amF1egmlwtPzBhuNQjLhUB-WuW3pwbiCdlkPw/viewform?usp=publish-editor" target="_blank" rel="noopener noreferrer" class="btn-white">Postularme</a>
+      <a href="https://docs.google.com/forms/d/e/1FAIpQLSeRQG-hehKt5amF1egmlwtPzBhuNQjLhUB-WuW3pwbiCdlkPw/viewform?usp=publish-editor" target="_blank" rel="noopener noreferrer" class="btn-white sc-btn-black">Postularme</a>
     </div>
     <div class="sc-expect-collage" aria-hidden="true">
-      <div class="sc-expect-img sc-expect-collage-a" style="background-image:url('../img/sc-expect/collage.webp')"></div>
+      <div class="sc-expect-img sc-expect-collage-a" style="background-image:url('../img/sc-expect/cdmx.webp')"></div>
       <div class="sc-expect-img sc-expect-collage-b" style="background-image:url('../img/sc-expect/celular.webp')"></div>
-      <div class="sc-expect-img sc-expect-collage-c" style="background-image:url('../img/sc-expect/ciudad.webp')"></div>
+      <div class="sc-expect-img sc-expect-collage-c" style="background-image:url('../img/sc-expect/rio.webp')"></div>
     </div>
   </section>
 
@@ -547,31 +557,42 @@ Su trabajo se centra en derechos humanos, política y cultura, con un enfoque qu
       // Con "Reducir movimiento" activado en el teléfono/computadora, cambia más lento en vez de detenerse
       const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       const INTERVAL = reduce ? 3000 : 1000; // ms entre cambios
-      const images = Array.from({ length: 18 }, (_, i) =>
-        '../img/sc-hero/' + String(i + 1).padStart(2, '0') + '.webp'
-      );
+      // Imágenes recortadas por Brenda, separadas por forma del cuadro (img/sc-hero-v2)
+      const range = (prefix, n) => Array.from({ length: n }, (_, i) => '../img/sc-hero-v2/' + prefix + '-' + (i + 1) + '.webp');
+      const pools = {
+        sup: range('sup', 4),  // horizontales superiores → cuadro superior izquierdo
+        inf: range('inf', 5),  // horizontales inferiores → cuadro inferior izquierdo
+        ver: range('ver', 10)  // verticales → los dos cuadros de la derecha
+      };
       const tiles = Array.from(document.querySelectorAll('#sc-hero [data-rotate]'));
-      // Índice de la imagen que muestra cada cuadro; arrancan separados para que no coincidan
-      const current = tiles.map((_, t) => Math.round(t * images.length / tiles.length));
+      const poolOf = tile => pools[tile.dataset.rotate];
+
+      // URL que muestra cada cuadro; los que comparten grupo arrancan con imágenes distintas
+      const used = {};
+      const current = tiles.map(tile => {
+        const g = tile.dataset.rotate;
+        used[g] = (used[g] || 0) + 1;
+        return poolOf(tile)[(used[g] - 1) * 5 % poolOf(tile).length];
+      });
 
       function show(t) {
-        tiles[t].style.backgroundImage = 'url("' + images[current[t]] + '")';
+        tiles[t].style.backgroundImage = 'url("' + current[t] + '")';
       }
       tiles.forEach((_, t) => show(t));
 
       // Precarga en segundo plano; solo se rota entre imágenes ya descargadas para que no parpadee
       const loaded = new Set(current);
-      images.forEach((src, i) => {
+      Object.values(pools).flat().forEach(src => {
         const img = new Image();
-        img.onload = () => loaded.add(i);
+        img.onload = () => loaded.add(src);
         img.src = src;
       });
 
-      // Cambia UN cuadro al azar (puede repetirse) a una imagen que no esté visible en ningún otro
+      // Cambia UN cuadro al azar (puede repetirse) a otra imagen de su grupo que no esté visible
       function swapOne() {
-        const free = [...loaded].filter(i => !current.includes(i));
-        if (!free.length) return; // todavía cargando
         const t = Math.floor(Math.random() * tiles.length);
+        const free = poolOf(tiles[t]).filter(src => loaded.has(src) && !current.includes(src));
+        if (!free.length) return; // todavía cargando
         current[t] = free[Math.floor(Math.random() * free.length)];
         show(t);
       }
