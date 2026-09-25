@@ -482,6 +482,12 @@
           <button class="footer-ver-mas" onclick="document.getElementById('modal-florencia').classList.add('open')">Ver más</button>
         </div>
         <div style="display:flex; flex-direction:column; gap:0.6rem;">
+          <span class="footer-fund">Coordinado por: <br/>
+            <span class="footer-bio-text"><strong>Brenda Sánchez Núñez</strong> es periodista, productora y estratega de contenido. Actualmente es consultora del Global Fund for a New Economy, donde coordina ARENA, el Gimnasio Creativo Social: un programa que forma y acompaña a creadores de contenido de América Latina en el desarrollo de narrativas sobre nueva economía.</span>
+          </span>
+          <button class="footer-ver-mas" onclick="document.getElementById('modal-brenda').classList.add('open')">Ver más</button>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:0.6rem;">
           <span class="footer-fund">Financiado por: <br/>
             <a href="https://globalneweconomy.org" target="_blank" rel="noopener" class="footer-fund-link"><img src="../img/GFNE-Logo1-White.png" alt="Global Fund for a New Economy" style="height:56px; width:auto; opacity:0.5;"></a>.</span>
         </div>
@@ -504,6 +510,39 @@
   </footer>
 
   </main>
+
+  <!-- ── MODAL BRENDA ── -->
+  <div id="modal-brenda" class="modal-overlay" onclick="if(event.target===this)this.classList.remove('open')">
+    <div class="modal-card">
+      <div class="modal-header">
+        <button class="modal-close" onclick="document.getElementById('modal-brenda').classList.remove('open')" aria-label="Cerrar">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-photo-wrap">
+          <img src="../img/brenda.jpg" alt="Brenda Sánchez Núñez" style="object-position: center 30%;">
+        </div>
+        <div class="modal-text">
+          <p class="modal-label">Coordinado por</p>
+          <h3 class="modal-name">Brenda Sánchez Núñez</h3>
+          <p class="modal-bio">
+            <strong>Brenda Sánchez Núñez</strong> es periodista, productora y estratega de contenido. Actualmente es consultora del Global Fund for a New Economy, donde coordina ARENA, el Gimnasio Creativo Social: un programa que forma y acompaña a creadores de contenido de América Latina en el desarrollo de narrativas sobre nueva economía. Ahí lleva también la estrategia digital y la articulación del ecosistema de creadores del fondo.
+            <br/>
+            <br/>
+            Su trayectoria articula el periodismo con la estrategia digital y la comunicación de causas, traduciendo temas económicos, climáticos y feministas a formatos nativos de redes capaces de conectar con audiencias amplias. Es licenciada en Periodismo y Comunicación Pública por el ITESO y comenzó su carrera como reportera de Ciudad y Cultura en el periódico Mural, de Grupo Reforma.
+            <br/>
+            <br/>
+            Fue coordinadora de redes sociales de Canal Once, donde diseñó la estrategia digital de más de 25 producciones originales y encabezó la cobertura digital de la toma de protesta de la presidenta Claudia Sheinbaum, con más de 60 contenidos y medio millón de alcance. También ha trabajado como social media manager de Natalia Lafourcade, a cargo de la estrategia multiplataforma de sus lanzamientos musicales y giras internacionales.
+            <br/>
+            <br/>
+            Desde 2024 es productora y estratega de contenido en Buena Pregunta, donde coordina la realización de reportajes documentales en video y podcast. Entre sus proyectos recientes está la serie Transporte de Lujo, coproducción con Oxfam México sobre desigualdad y huella de carbono. Acompaña además la estrategia digital de Intrasentido, consultora feminista en cambio narrativo.
+            <br/>
+            <br/>
+            Forma parte de la décima generación de la Red LATAM de Jóvenes Periodistas. Es también artista de collage análogo y tallerista, con dos líneas de trabajo: por un lado, talleres de redes sociales y estrategia de contenidos dirigidos a organizaciones, asociaciones civiles y colectivos; por otro, talleres de collage análogo pensados para reconectar con la creatividad más allá del algoritmo.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- ── MODAL FLORENCIA ── -->
   <div id="modal-florencia" class="modal-overlay" onclick="if(event.target===this)this.classList.remove('open')">
